@@ -16,18 +16,6 @@ Ensure all TCP ports from the below list are available in your network stack.
  - 80/tcp
  - 443/tcp (for HTTPS access)
 
-### Using external DB
-
-By default, Team Edition stores all data in an internal PostgreSQL database. If you want to use it, skip this step.
-
-If you want to use another database on your side, you can do it according to these instructions.
-
-1. Go to the `compose/cbte` folder, and open `.env.example` file.
-2. Change `USE_EXTERNAL_DB` to `true` value.
-3. Change `CLOUDBEAVER_DB_DRIVER` to driver for a database you want to use, for example: `postgres-jdbc`/`mysql8`/`oracle_thin`
-4. Enter the authentication data for your database in the fields `CLOUDBEAVER_DB_URL` `CLOUDBEAVER_DB_USER` `CLOUDBEAVER_DB_PASSWORD`
-
-
 ### Configuring and starting CloudBeaver cluster
 
 1. Open configuration file
