@@ -1,10 +1,9 @@
 # CloudBeaver Enterprise Installation with Docker Compose
 
 It is the simplest way to install CloudBeaver Enterprise Edition.  
-All you need is a Linux, MacOs or Windows machine with docker.
+All you need is a Linux, macOS, or Windows machine with Docker.
 
 ### System requirements
-
 - Minimum 4GB RAM
 - Minimum 50GB storage, > 100GB recommended
 - Ubuntu recommended
@@ -12,26 +11,21 @@ All you need is a Linux, MacOs or Windows machine with docker.
 - [docker-compose](https://docs.docker.com/compose/install/) binary installed and added to your PATH variable. Supported versions 2.10 and above
     - If you install `docker-compose-plugin`, you must use the `docker compose` command instead of `docker-compose`.
 
-Ensure all TCP ports from the below list are available in your network stack.
- - 80/tcp
- - 443/tcp (for HTTPS access)
-
-### Configuring and starting CloudBeaver cluster
-
-1. Open configuration file
-    - Edit `.env` file to set configuration properties
-2. Start the cluster
+### Configuring and starting the CloudBeaver cluster
+1. Ensure the following TCP ports are available in your network stack
+   - 80/tcp
+   - 443/tcp (for HTTPS access)
+1. Open the configuration file
+    - Edit the `.env` file to set configuration properties
+1. Start the cluster
    - `docker-compose up -d` or `docker compose up -d`
 
-### Services will be accessible in the next URIs
-
-- https://__CLOUDBEAVER_DOMAIN__ - web interface. It will open the admin panel on the first start
+Open __CLOUDBEAVER_SCHEME__://__CLOUDBEAVER_DOMAIN__ to access the app. This URL will open the admin panel when the app is first started.
 
 ### Stopping the cluster
 `docker-compose down`
 
-### Version update procedure
-
-1. Change value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. Go to next step if tag `latest` is set.
+### Updating the cluster
+1. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. If you use the tag `latest`, you don't need to do anything during this step.
 2. Pull new docker images: `docker-compose pull` or `docker compose pull`  
-3. Restart cluster: `docker-compose up -d` or `docker compose up -d`
+3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
