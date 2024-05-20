@@ -26,7 +26,6 @@ Ensure all TCP ports from the below list are available in your network stack.
 ### Services will be accessible in the next URIs
 
 - https://__CLOUDBEAVER_DOMAIN__ - web interface. It will open the admin panel on the first start
-- https://__CLOUDBEAVER_DOMAIN__/dc - endpoint for desktop applications
 
 ### Stopping the cluster
 `docker-compose down`
