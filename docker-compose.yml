@@ -6,7 +6,6 @@ volumes:
   nginx_conf_data: {}
 
 networks:
-  cloudbeaver-public-net:
   cloudbeaver-private-net:
 
 services:
@@ -16,16 +15,11 @@ services:
     ports:
       - 80:80
       - 443:443
-    environment:
-      - CLOUDBEAVER_DOMAIN=${CLOUDBEAVER_DOMAIN}
-      - PRODUCT_TYPE=ee
     networks:
-      - cloudbeaver-public-net
       - cloudbeaver-private-net
     volumes:
       - nginx_conf_data:/etc/nginx/product-conf/
       - nginx_ssl_data:/etc/letsencrypt/
-      - ./nginx/dbeaver-ee.locations:/etc/nginx/conf.d/dbeaver-ee.locations
     depends_on:
       - cloudbeaver
 
@@ -33,8 +27,6 @@ services:
     restart: unless-stopped
     hostname: cloudbeaver
     image: $IMAGE_SOURCE/cloudbeaver-ee:${CLOUDBEAVER_VERSION_TAG}
-    deploy:
-      replicas: ${REPLICA_COUNT_CB}
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
     expose:
