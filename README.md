@@ -3,6 +3,11 @@
 It is the simplest way to install CloudBeaver Enterprise Edition.  
 All you need is a Linux, macOS, or Windows machine with Docker.
 
+CloudBeaver can be run in a [single docker container](https://dbeaver.com/docs/cloudbeaver/CloudBeaver-Enterprise-deployment-from-docker-image/).  
+However you can use Docker compose for additional product features such as:
+- Load balancing
+- Easy web server (HTTPS) configuration
+
 ### System requirements
 - Minimum 4GB RAM
 - Minimum 50GB storage, > 100GB recommended
