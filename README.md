@@ -31,7 +31,14 @@ However you can use Docker compose for additional product features such as:
    - 80/tcp
    - 443/tcp (for HTTPS access)
 1. Open `http://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
-1. You can configure HTTPS automatically in the admin panel or manually by editing nginx config.
+
+### Configuring SSL (HTTPS)
+
+There are two ways to configure SSL:
+1. You can configure HTTPS automatically in the admin panel.   
+    In this case your server domain address will be `<deployment-domain>.<organization-domain>.databases.team`.   
+    You can setup organization and deployment domains.
+2. You can issue you own SSL cenrtificate and configure it manually by editing nginx config.
 
 ### Stopping the cluster
 `docker-compose down`
