@@ -1,4 +1,6 @@
-# CloudBeaver Enterprise Installation with Docker Compose
+# CloudBeaver Enterprise 
+
+## Installation with Docker Compose
 
 It is the simplest way to install CloudBeaver Enterprise Edition.  
 All you need is a Linux, macOS, or Windows machine with Docker.
