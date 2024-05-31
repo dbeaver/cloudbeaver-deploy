@@ -17,13 +17,17 @@ However you can use Docker compose for additional product features such as:
     - If you install `docker-compose-plugin`, you must use the `docker compose` command instead of `docker-compose`.
 
 ### Configuring and starting the CloudBeaver cluster
-1. Ensure the following TCP ports are available in your network stack
-   - 80/tcp
-   - 443/tcp (for HTTPS access)
+1. Clone repository
+   ```sh
+   git clone https://github.com/dbeaver/cloudbeaver-deploy
+   ```
 1. Open the configuration file
     - Edit the `.env` file to set configuration properties
 1. Start the cluster
    - `docker-compose up -d` or `docker compose up -d`
+1. Ensure the following TCP ports are available in your network stack
+   - 80/tcp
+   - 443/tcp (for HTTPS access)
 
 Open __CLOUDBEAVER_SCHEME__://__CLOUDBEAVER_DOMAIN__ to access the app. This URL will open the admin panel when the app is first started.
 
