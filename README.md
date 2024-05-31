@@ -30,8 +30,8 @@ However you can use Docker compose for additional product features such as:
 1. Ensure the following TCP ports are available in your network stack
    - 80/tcp
    - 443/tcp (for HTTPS access)
-
-Open __CLOUDBEAVER_SCHEME__://__CLOUDBEAVER_DOMAIN__ to access the app. This URL will open the admin panel when the app is first started.
+1. Open `http://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
+1. You can configure HTTPS automatically in the admin panel or manually by editing nginx config.
 
 ### Stopping the cluster
 `docker-compose down`
