@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   cloudbeaver: {}
+  postgres_data: { }
   nginx_ssl_data: {}
   nginx_conf_data: {}
 
@@ -29,7 +30,37 @@ services:
     image: $IMAGE_SOURCE/cloudbeaver-ee:${CLOUDBEAVER_VERSION_TAG}
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
+    environment:
+      - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
+      - CLOUDBEAVER_DB_URL=${CLOUDBEAVER_DB_URL}
+      - CLOUDBEAVER_DB_USER=${CLOUDBEAVER_DB_USER}
+      - CLOUDBEAVER_DB_PASSWORD=${CLOUDBEAVER_DB_PASSWORD}
+      - CLOUDBEAVER_DB_SCHEMA=cb
+      - CLOUDBEAVER_QM_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
+      - CLOUDBEAVER_QM_DB_URL=${CLOUDBEAVER_DB_URL}
+      - CLOUDBEAVER_QM_DB_USER=${CLOUDBEAVER_DB_USER}
+      - CLOUDBEAVER_QM_DB_PASSWORD=${CLOUDBEAVER_DB_PASSWORD}
+      - CLOUDBEAVER_QM_DB_SCHEMA=qm
     expose:
       - 8978
+    depends_on:
+      - postgres
     networks:
       - cloudbeaver-private-net
+
+  postgres:
+    restart: unless-stopped
+    hostname: postgres
+    image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=cloudbeaver
+      - POSTGRES_USER=${CLOUDBEAVER_DB_USER}
+      - POSTGRES_PASSWORD=${CLOUDBEAVER_DB_PASSWORD}
+    expose:
+      - 5432
+    networks:
+      - cloudbeaver-private-net
+
+
