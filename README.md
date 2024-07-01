@@ -25,6 +25,7 @@ However you can use Docker compose for additional product features such as:
    ```
 1. Open the configuration file
     - Edit the `.env` file to set configuration properties
+    - It is highly recommended to change the default database password in `CLOUDBEAVER_DB_PASSWORD` variable
 1. Start the cluster
    - `docker-compose up -d` or `docker compose up -d`
 1. Ensure the following TCP ports are available in your network stack
