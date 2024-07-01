@@ -18,6 +18,7 @@ services:
     environment:
       - REPLICA_COUNT_EE=${REPLICA_COUNT_EE}
       - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+      - SERVICE_PORT=8978
     networks:
       - cloudbeaver-private-net
     volumes:
