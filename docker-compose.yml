@@ -27,6 +27,8 @@ services:
     restart: unless-stopped
     hostname: cloudbeaver
     image: $IMAGE_SOURCE/cloudbeaver-ee:${CLOUDBEAVER_VERSION_TAG}
+    env_file:
+      - path: .env    
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
     expose:
