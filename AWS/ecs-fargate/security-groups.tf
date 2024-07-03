@@ -30,17 +30,23 @@ resource "aws_security_group" "cloudbeaver_alb" {
   tags = merge(var.common_tags, { Name = "Cloudbeaver ALB SG" })
 }
 
-resource "aws_security_group" "cloudbeaver_efs" {
-  name   = "ecs-Cloudbeaver-efs-sg"
+resource "aws_security_group" "cloudbeaver_te_private" {
+  name   = "ecs-cloudbeaver-service-postgres"
   vpc_id = aws_vpc.cloudbeaver_net.id
-  description = "Cloudbeaver EFS SG"
+  description = "Cloudbeaver ECS Postgres SG"
 
   ingress {
-   protocol         = "tcp"
-   from_port        = 2049
-   to_port          = 2049
-   cidr_blocks = var.private_subnet_cidrs
-   description = "Allow NFS traffic - TCP 2049"
+    protocol         = "tcp"
+    from_port        = 5432
+    to_port          = 5432
+    cidr_blocks = var.private_subnet_cidrs
+  }
+
+   ingress {
+    protocol         = "tcp"
+    from_port        = 9092
+    to_port          = 9093
+    cidr_blocks = var.private_subnet_cidrs
   }
 
   egress {
@@ -48,9 +54,8 @@ resource "aws_security_group" "cloudbeaver_efs" {
    from_port        = 0
    to_port          = 0
    cidr_blocks      = ["0.0.0.0/0"]
+   ipv6_cidr_blocks = ["::/0"]
   }
-
-  tags = merge(var.common_tags, { Name = "Cloudbeaver EFS SG" })
 }
 
 
