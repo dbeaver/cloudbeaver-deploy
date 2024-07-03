@@ -59,6 +59,7 @@ resource "aws_ecs_task_definition" "cloudbeaver-task" {
     name        = "${var.task_name}"
     image       = "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.cloudbeaver_image_name}:${var.cloudbeaver_version}"
     essential   = true
+    environment = var.cloudbeaver-env
     logConfiguration = {
                 "logDriver": "awslogs"
                 "options": {

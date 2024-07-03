@@ -3,7 +3,7 @@ resource "aws_vpc" "cloudbeaver_net" {
   instance_tenancy = "default"
   enable_dns_hostnames = true
 
-  tags = merge(var.common_tags, { Name = "Cloudbeaver" })
+  tags = merge(var.common_tags, { Name = "Cloudbeaver network" })
 }
 
 data "aws_availability_zones" "available" {

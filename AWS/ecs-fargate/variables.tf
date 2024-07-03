@@ -11,7 +11,7 @@ variable "aws_region" {
 }
 
 variable "create_cluster" {
-  description = "Choose create cluster or use an existing cluster for deployment."
+  description = "Choose create cluster or use an existing cluster for deployment"
   type    = bool
   default = true
 }
@@ -21,13 +21,6 @@ variable "existed_cluster_id" {
   type    = string
   default = ""
 }
-
-variable "alb_certificate_Identifier" {
-  description = "Your certificate ID from AWS Certificate Manager"
-  type = string
-  default = ""
-}
-
 
 variable "cloudbeaver_image_name" {
   description = "The version of the cluster you want to deploy"
@@ -41,12 +34,26 @@ variable "cloudbeaver_version" {
   default = "24.1.0"
 }
 
+variable "alb_certificate_Identifier" {
+  description = "Your certificate ID from AWS Certificate Manager"
+  type = string
+  default = ""
+}
+
+variable "cloudbeaver-env" {
+  description = "The environment for cloudbeaver"
+  # type = map(string)
+  default = [{
+      "name": "CLOUDBEAVER_PUBLIC_URL",
+      "value": "cloudbeaver.io"
+  }]
+}
+
 variable "task_name" {
   description = "The version of the cluster you want to deploy"
   type = string
   default = "cloudbeaver"
 }
-
 
 variable "cloudbeaver_default_ns" {
   type = string
