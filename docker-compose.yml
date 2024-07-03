@@ -16,10 +16,8 @@ services:
     ports:
       - 80:80
       - 443:443
-    environment:
-      - REPLICA_COUNT_EE=${REPLICA_COUNT_EE}
-      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
-      - SERVICE_PORT=8978
+    env_file:
+      - path: .env  
     networks:
       - cloudbeaver-private-net
     volumes:
