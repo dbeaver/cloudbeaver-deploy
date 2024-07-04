@@ -1,7 +1,7 @@
 variable "aws_account_id" {
   description = "Your AWS account ID"
   type = string
-  default = ""
+  default = "" 
 }
 
 variable "aws_region" {
@@ -38,15 +38,6 @@ variable "alb_certificate_Identifier" {
   description = "Your certificate ID from AWS Certificate Manager"
   type = string
   default = ""
-}
-
-variable "cloudbeaver-env" {
-  description = "The environment for cloudbeaver"
-  # type = map(string)
-  default = [{
-      "name": "CLOUDBEAVER_PUBLIC_URL",
-      "value": "cloudbeaver.io"
-  }]
 }
 
 variable "task_name" {
@@ -86,3 +77,75 @@ variable "common_tags" {
   }
 }
 
+variable "cloudbeaver-env" {
+  # type = map(string)
+  default = [{
+      "name": "CLOUDBEAVER_DB_DRIVER",
+      "value": "postgres-jdbc"
+  },
+  {
+      "name": "CLOUDBEAVER_DB_URL",
+      "value": ""
+  },
+  {
+      "name": "CLOUDBEAVER_DB_USER",
+      "value": "postgres"
+  },
+  {
+      "name": "CLOUDBEAVER_DB_PASSWORD",
+      "value": "StR0NgP2s"
+  },
+  {
+      "name": "CLOUDBEAVER_DB_SCHEMA",
+      "value": "cb"
+  },
+  {
+      "name": "CLOUDBEAVER_QM_DB_DRIVER",
+      "value": "postgres-jdbc"
+  },
+  {
+      "name": "CLOUDBEAVER_QM_DB_URL",
+      "value": ""
+  },
+  {
+      "name": "CLOUDBEAVER_QM_DB_USER",
+      "value": "postgres"
+  },
+  {
+      "name": "CLOUDBEAVER_QM_DB_PASSWORD",
+      "value": "StR0NgP2s"
+  },
+  {
+      "name": "CLOUDBEAVER_QM_DB_SCHEMA",
+      "value": "qm"
+  },
+  {
+      "name": "CLOUDBEAVER_PUBLIC_URL",
+      "value": "test-domain-name.databases.team"
+  }]
+}
+
+variable "rds_db_type" {
+  description = "Type of RDS DB instance"
+  type        = string
+  default     = "postgres"
+}
+
+variable "rds_db_version" {
+  description = "Version of type RDS DB instance"
+  type        = string
+  default     = "16.1"
+}
+
+variable "cloudbeaver-db-env" {
+  description = "Parameters for your internal database"
+  # type = map(string)
+  default = [
+    { "name": "POSTGRES_PASSWORD",
+     "value": "postgres"},
+    { "name": "POSTGRES_USER",
+     "value": "postgres"},
+    { "name": "POSTGRES_DB",
+     "value": "cloudbeaver"}
+  ]
+}

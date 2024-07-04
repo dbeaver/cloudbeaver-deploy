@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "cloudbeaver-task" {
     name        = "${var.task_name}"
     image       = "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.cloudbeaver_image_name}:${var.cloudbeaver_version}"
     essential   = true
-    environment = var.cloudbeaver-env
+    environment = local.updated_cloudbeaver_env
     logConfiguration = {
                 "logDriver": "awslogs"
                 "options": {
@@ -89,7 +89,8 @@ resource "aws_ecs_service" "cloudbeaver" {
   depends_on = [
     aws_ecs_task_definition.cloudbeaver-task,
     aws_security_group.cloudbeaver,
-    aws_lb_target_group.cloudbeaver
+    aws_lb_target_group.cloudbeaver,
+    aws_db_instance.rds_dbeaver_db
   ]
 
   name            = "${var.task_name}"
@@ -121,4 +122,35 @@ resource "aws_ecs_service" "cloudbeaver" {
   }
 
   tags = var.common_tags
+}
+
+
+locals {
+
+  rds_db_url = "jdbc:postgresql://${try(aws_db_instance.rds_dbeaver_db.address, "")}:5432/cloudbeaver"
+
+  cloudbeaver_env_modified = [
+    for item in var.cloudbeaver-env : {
+      name  = item.name
+      value = (
+        item.name == "CLOUDBEAVER_DB_URL" ? local.rds_db_url :
+        item.name == "CLOUDBEAVER_QM_DB_URL" ? local.rds_db_url :
+        item.value
+      )
+    }
+  ]
+  
+  postgres_password = { for item in var.cloudbeaver-db-env : item.name => item.value }["POSTGRES_PASSWORD"]
+  postgres_user     = { for item in var.cloudbeaver-db-env : item.name => item.value }["POSTGRES_USER"]
+
+  updated_cloudbeaver_env = [for item in local.cloudbeaver_env_modified : {
+    name  = item.name
+    value = (
+      item.name == "CLOUDBEAVER_DB_PASSWORD" ? local.postgres_password :
+      item.name == "CLOUDBEAVER_QM_DB_PASSWORD" ? local.postgres_password :
+      item.name == "CLOUDBEAVER_DB_USER" ? local.postgres_user :
+      item.name == "CLOUDBEAVER_QM_DB_USER" ? local.postgres_user :
+      item.value
+    )
+  }]
 }
