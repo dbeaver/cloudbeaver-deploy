@@ -58,6 +58,28 @@ resource "aws_security_group" "cloudbeaver_te_private" {
   }
 }
 
+resource "aws_security_group" "cloudbeaver_efs" {
+  name   = "ecs-Cloudbeaver-efs-sg"
+  vpc_id = aws_vpc.cloudbeaver_net.id
+  description = "Cloudbeaver EFS SG"
+
+  ingress {
+   protocol         = "tcp"
+   from_port        = 2049
+   to_port          = 2049
+   cidr_blocks = var.private_subnet_cidrs
+   description = "Allow NFS traffic - TCP 2049"
+  }
+
+  egress {
+   protocol         = "-1"
+   from_port        = 0
+   to_port          = 0
+   cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = merge(var.common_tags, { Name = "Cloudbeaver EFS SG" })
+}
 
 resource "aws_security_group" "cloudbeaver" {
   name   = "ecs-cloudbeaver-service-sg"
