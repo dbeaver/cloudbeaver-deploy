@@ -47,13 +47,13 @@ resource "aws_ecs_task_definition" "cloudbeaver-task" {
   cpu                      = 2048
   memory                   = 4096
   execution_role_arn       = aws_iam_role.ecsTaskExecutionRole.arn
-  # volume {
-  #   name      = "cloudbeaver_data"
-  #   efs_volume_configuration {
-  #     file_system_id = aws_efs_file_system.cloudbeaver_data.id
-  #     root_directory = "/"
-  #   }
-  # }
+  volume {
+    name      = "cloudbeaver_data"
+    efs_volume_configuration {
+      file_system_id = aws_efs_file_system.cloudbeaver_data.id
+      root_directory = "/"
+    }
+  }
 
   container_definitions = jsonencode([{
     name        = "${var.task_name}"
@@ -69,10 +69,10 @@ resource "aws_ecs_task_definition" "cloudbeaver-task" {
                     "awslogs-stream-prefix": "cb"
                 }
     }
-    # mountPoints = [{
-    #           "containerPath": "/opt/cloudbeaver/workspace",
-    #           "sourceVolume": "cloudbeaver_data"
-    # }]
+    mountPoints = [{
+              "containerPath": "/opt/cloudbeaver/workspace",
+              "sourceVolume": "cloudbeaver_data"
+    }]
     portMappings = [{
       name = "${var.task_name}"
       protocol      = "tcp"
