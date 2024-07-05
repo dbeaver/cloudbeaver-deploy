@@ -13,7 +13,6 @@ resource "aws_ecs_cluster" "cloudbeaver" {
   ]
 
   name = "cloudbeaver"
-  count = var.create_cluster ? 1 : 0  
 
   tags = var.common_tags
 }
@@ -38,7 +37,7 @@ resource "aws_service_discovery_private_dns_namespace" "cloudbeaver" {
 resource "aws_ecs_task_definition" "cloudbeaver-task" {
 
   depends_on = [
-   aws_ecs_cluster.cloudbeaver[0]
+   aws_ecs_cluster.cloudbeaver
   ]
 
   family                   = "${var.task_name}"
@@ -94,7 +93,7 @@ resource "aws_ecs_service" "cloudbeaver" {
   ]
 
   name            = "${var.task_name}"
-  cluster         = var.create_cluster ? aws_ecs_cluster.cloudbeaver[0].id : var.existed_cluster_id
+  cluster         = aws_ecs_cluster.cloudbeaver.id
   task_definition = aws_ecs_task_definition.cloudbeaver-task.arn
   launch_type     = "FARGATE"
   desired_count   = 1

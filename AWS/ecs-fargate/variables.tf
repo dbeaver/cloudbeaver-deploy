@@ -10,18 +10,6 @@ variable "aws_region" {
   default = ""
 }
 
-variable "create_cluster" {
-  description = "Choose create cluster or use an existing cluster for deployment"
-  type    = bool
-  default = true
-}
-
-variable "existed_cluster_id" {
-  description = "Cluster where you plan to deploy"
-  type    = string
-  default = ""
-}
-
 variable "cloudbeaver_image_name" {
   description = "The version of the cluster you want to deploy"
   type = string

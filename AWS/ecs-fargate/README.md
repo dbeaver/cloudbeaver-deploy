@@ -27,16 +27,9 @@
    - Ensure that the `alb_certificate_Identifier` variable contains the ID from [AWS Certificate Manager](#importing-an-ssl-certificate-in-aws) corresponding to your domain specified in `CLOUDBEAVER_PUBLIC_URL`.
    - You can customize the deployment version by updating the `cloudbeaver_version` environment variable. The default version is `24.1.0`.
 
-5. Target cluster configuration for deployment:  
-   By default deployment created AWS ECS Cluster, and make deployment in them.  
-   If you want make deployment in your existed cluster follow steps:  
-      - Open `variables.tf`.
-      - Change variable `create_cluster` to `false`
-      - Set `existed_cluster_id` as your ECS cluster name, wich existed in your region.
+5. Run `terraform init` and then `terraform apply` in `ecs-fargate` directory to create the ECS cluster and complete the deployment.
 
-6. Run `terraform init` and then `terraform apply` in `ecs-fargate` directory to create the ECS cluster and complete the deployment.
-
-7. Cluster destruction is performed in reverse order:
+6. Cluster destruction is performed in reverse order:
     - Run `terraform destroy` in `ecs-fargate` directory to destroy ECS cluster.
 
 ### Importing an SSL Certificate in AWS
