@@ -1,4 +1,4 @@
-### Cloudbeaver deployment for AWS ECS and Fargate with Terraform.
+### Cloudbeaver deployment for AWS ECS and Fargate with Terraform
 
 1. First you need to install and configure your AWS CLI:
 
@@ -8,7 +8,7 @@
 
 2. Next you need to [install Terraform](https://developer.hashicorp.com/terraform/install)
 
-3. Configuration your cluster database:
+3. Configure your cluster database:
 
  **Note:** only [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/) is supported.
       - Open `variables.tf`.
