@@ -1,0 +1,59 @@
+{{- if .Values.backend.internal_db }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: db
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        {{ .Release.Name }}-private-net: "true"
+        app: db
+    spec:
+      containers:
+        - image: dbeaver/cloudbeaver-postgres:13
+          imagePullPolicy: "IfNotPresent"
+          name: postgres
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+            - name: POSTGRES_DB
+              value: cloudbeaver
+            - name: POSTGRES_USER
+              value: {{ .Values.backend.cloudbeaver_db_user }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-db-pass
+                  key: postgres-pass
+          ports:
+            - containerPort: 5432
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: {{ .Release.Name }}-db-data
+            - name: {{ .Release.Name }}-initalize-script
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+      hostname: postgres
+      restartPolicy: Always
+      volumes:
+        - name: {{ .Release.Name }}-db-data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-db-data
+        - name: {{ .Release.Name }}-initalize-script
+          secret:
+            secretName: {{ .Release.Name }}-init-db
+            items:
+              - key: cb-init.sql
+                path: cb-init.sql
+status: {}
+{{- end }}
