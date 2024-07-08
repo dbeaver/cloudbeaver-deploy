@@ -1,4 +1,4 @@
-## Team Edition Helm chart for Kubernetes
+## Cloudbeaver Helm chart for Kubernetes
 
 #### Minimum requirements:
 
@@ -20,7 +20,7 @@
   - If you set the *HTTPS* endpoint scheme, then create a valid TLS certificate for the domain endpoint `cloudbeaverBaseDomain` and place it into `k8s/cbte/ingressSsl`:  
     Certificate: `ingressSsl/fullchain.pem`  
     Private Key: `ingressSsl/privkey.pem`
-- Deploy Team Edition with Helm: `helm install cloudbeaver`
+- Deploy Cloudbeaver with Helm: `helm install cloudbeaver`
 
 ### Version update procedure.
 
