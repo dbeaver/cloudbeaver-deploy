@@ -7,11 +7,6 @@ provider "aws" {
 ################################################################################
 
 resource "aws_ecs_cluster" "cloudbeaver" {
-  depends_on = [
-    aws_ecr_repository.cloudbeaver,
-    null_resource.build_push_dkr_img
-  ]
-
   name = "cloudbeaver"
 
   tags = var.common_tags
@@ -56,7 +51,7 @@ resource "aws_ecs_task_definition" "cloudbeaver-task" {
 
   container_definitions = jsonencode([{
     name        = "${var.task_name}"
-    image       = "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.cloudbeaver_image_name}:${var.cloudbeaver_version}"
+    image       = "${var.cloudbeaver_image_source}/${var.cloudbeaver_image_name}:${var.cloudbeaver_version}"
     essential   = true
     environment = local.updated_cloudbeaver_env
     logConfiguration = {

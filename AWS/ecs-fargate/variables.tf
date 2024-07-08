@@ -10,6 +10,12 @@ variable "aws_region" {
   default = ""
 }
 
+variable "cloudbeaver_image_source" {
+  description = "The version of the cluster you want to deploy"
+  type = string
+  default = "dbeaver"
+}
+
 variable "cloudbeaver_image_name" {
   description = "The version of the cluster you want to deploy"
   type = string
