@@ -17,7 +17,7 @@
 - Edit chart values in `values.yaml` (use any text editor)
 - Configure domain and SSL certificate (optional)
   - Add an A record in your DNS hosting for a value of `cloudbeaverBaseDomain` variable with load balancer IP address.
-  - If you set the *HTTPS* endpoint scheme, then create a valid TLS certificate for the domain endpoint `cloudbeaverBaseDomain` and place it into `k8s/cbte/ingressSsl`:  
+  - If you set the *HTTPS* endpoint scheme, then create a valid TLS certificate for the domain endpoint `cloudbeaverBaseDomain` and place it into `k8s/ingressSsl`:  
     Certificate: `ingressSsl/fullchain.pem`  
     Private Key: `ingressSsl/privkey.pem`
 - Deploy Cloudbeaver with Helm: `helm install cloudbeaver`
