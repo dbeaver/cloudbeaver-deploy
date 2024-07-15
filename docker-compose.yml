@@ -46,7 +46,7 @@ services:
       - CLOUDBEAVER_QM_DB_PASSWORD=${CLOUDBEAVER_QM_DB_PASSWORD}
       - CLOUDBEAVER_QM_DB_SCHEMA=${CLOUDBEAVER_QM_DB_SCHEMA}
     expose:
-      - 8978
+      - ${CLOUDBEAVER_SERVICE_PORT:-8978}
     depends_on:
       - postgres
     networks:
