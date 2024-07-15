@@ -16,6 +16,8 @@ services:
     ports:
       - 80:80
       - 443:443
+    env_file:
+      - path: .env  
     networks:
       - cloudbeaver-private-net
     volumes:
@@ -28,6 +30,8 @@ services:
     restart: unless-stopped
     hostname: cloudbeaver
     image: $IMAGE_SOURCE/cloudbeaver-ee:${CLOUDBEAVER_VERSION_TAG}
+    deploy:
+      replicas: ${REPLICA_COUNT_EE:-1}
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
     environment:
@@ -42,7 +46,7 @@ services:
       - CLOUDBEAVER_QM_DB_PASSWORD=${CLOUDBEAVER_QM_DB_PASSWORD}
       - CLOUDBEAVER_QM_DB_SCHEMA=${CLOUDBEAVER_QM_DB_SCHEMA}
     expose:
-      - 8978
+      - ${CLOUDBEAVER_SERVICE_PORT:-8978}
     depends_on:
       - postgres
     networks:
