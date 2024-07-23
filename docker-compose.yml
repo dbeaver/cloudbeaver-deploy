@@ -17,7 +17,7 @@ services:
       - 80:80
       - 443:443
     env_file:
-      - path: .env  
+      - .env  
     networks:
       - cloudbeaver-private-net
     volumes:
