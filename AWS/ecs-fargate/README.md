@@ -6,16 +6,24 @@
 
    - [Environment variables to configure the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
 
-2. Next you need to [install Terraform](https://developer.hashicorp.com/terraform/install)
+2. Check your AWS user have minimum requirement IAM Policies:
+   
+   - `AmazonECS_FullAccess`
+   - `AmazonEC2FullAccess`
+   - `AmazonRDSFullAccess`
+   - `AWSCloudMapFullAccess`
 
-3. Configure your cluster database:
+3. Next you need to [install Terraform](https://developer.hashicorp.com/terraform/install)
 
- **Note:** only [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/) is supported.
-      - Open `variables.tf`.
-      - Specify `rds_db_version`, the default is `postgres:16.1`. Only PostgreSQL version can be specified.
-      - Update the credentials for database in `cloudbeaver-db-env`.
+4. Configure your cluster database:
 
-4. Configure the deployment in `variables.tf` file as follows:  
+ **Note:** only [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/) is supported. RDS database will be set up as an internal database for this deployment.  
+      - Navigate to `cloudbeaver-deploy/AWS/ecs-fargate`  
+      - Open `variables.tf` file.  
+      - Specify `rds_db_version`, the default is `postgres:16.1`. Only PostgreSQL version can be specified.  
+      - Set the credentials for database in `cloudbeaver-db-env`. By default it is `postgres`.  
+
+5. Configure the deployment in `variables.tf` file as follows:  
    - Set your `aws_account_id`, you can get it by logging into your AWS console:
 
    ![alt text](images/image.png)
@@ -27,12 +35,14 @@
    - Ensure that the `alb_certificate_Identifier` variable contains the ID from [AWS Certificate Manager](#importing-an-ssl-certificate-in-aws) corresponding to your domain specified in `CLOUDBEAVER_PUBLIC_URL`.
    - You can customize the deployment version by updating the `cloudbeaver_version` environment variable. The default version is `24.1.0`.
 
-5. Run `terraform init` and then `terraform apply` in `ecs-fargate` directory to create the ECS cluster and complete the deployment.
+6. Run `terraform init` and then `terraform apply` in `ecs-fargate` directory to create the ECS cluster and complete the deployment.
 
-6. Cluster destruction is performed in reverse order:
+7. Cluster destruction is performed in reverse order:
     - Run `terraform destroy` in `ecs-fargate` directory to destroy ECS cluster.
 
 ### Importing an SSL Certificate in AWS
+
+   **Note:** SSL Certificates are digital documents that ensure secure communication between a web server and a user's browser. They encrypt data to prevent interception and verify the authenticity of a website. You can obtain SSL certificates from Certificate Authorities (CAs) like Let's Encrypt, DigiCert, and Comodo.
 
    1. Open your web browser and log in to the AWS (Amazon Web Services) Console.  
 
