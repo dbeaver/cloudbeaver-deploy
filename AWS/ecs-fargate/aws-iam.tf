@@ -10,8 +10,8 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
-resource "aws_iam_policy" "CloudbeaverEFSAccessPolicy" {
-  name        = "CloudbeaverEFSAccessPolicy"
+resource "aws_iam_policy" "DBeaverTEEFSAccessPolicy" {
+  name        = "DBeaverTEEFSAccessPolicy"
   description = "Policy to allow access only to specific EFS resources"
   policy      = jsonencode({
     Version = "2012-10-17"
@@ -66,9 +66,9 @@ resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "CloudbeaverEFSAccessPolicy" {
+resource "aws_iam_role_policy_attachment" "DBeaverTEEFSAccessPolicy_attachment" {
   role       = "${aws_iam_role.ecsTaskExecutionRole.name}"
-  policy_arn = "${aws_iam_policy.CloudbeaverEFSAccessPolicy.arn}"
+  policy_arn = "${aws_iam_policy.DBeaverTEEFSAccessPolicy.arn}"
 }
 resource "aws_iam_role_policy_attachment" "logs_policy_attachment" {
   role       = "${aws_iam_role.ecsTaskExecutionRole.name}"
