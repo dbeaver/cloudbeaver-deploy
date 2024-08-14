@@ -2,7 +2,7 @@ version: "3"
 
 volumes:
   cloudbeaver: {}
-  postgres_data: { }
+  postgres_data: {}
   nginx_ssl_data: {}
   nginx_conf_data: {}
 
@@ -58,6 +58,7 @@ services:
     image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./cloudbeaver-db-init.sql:/docker-entrypoint-initdb.d/cb-init.sql
     environment:
       - POSTGRES_DB=cloudbeaver
       - POSTGRES_USER=${CLOUDBEAVER_DB_USER}
