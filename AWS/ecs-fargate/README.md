@@ -6,7 +6,7 @@
 
    - [Environment variables to configure the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
 
-2. Check your AWS user have minimum requirement IAM Policies:
+2. Check that your AWS user has the minimum required IAM policies:
    
    - `AmazonECS_FullAccess`
    - `AmazonEC2FullAccess`
