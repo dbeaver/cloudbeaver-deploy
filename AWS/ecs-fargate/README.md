@@ -52,6 +52,8 @@
 
    After completing these steps, you will receive an Identifier for your newly imported certificate.
 
+   ![alt text](images/image-2.png)
+
 ### Version update
 
 1. Navigate to the `cloudbeaver-deploy/AWS/ecs-fargate` directory.
