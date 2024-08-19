@@ -4,6 +4,8 @@
 
 # cloudbeaver general values for all EE services
 cloudbeaver:
+  replicaCount: 1
+  image: dbeaver/cloudbeaver-ee
   imageTag: "24.1.0"
   pullPolicy: Always
   # pullCredsName - name of a secret config map that contains docker repo auths
@@ -21,11 +23,6 @@ httpScheme: http
 httpsCertPath: "ingressSsl"
 # certificate: <httpsCertPath>/fullchain.pem
 # certificate key: <httpsCertPath>/privkey.pem
-
-# Service depend values
-cloudbeaver:
-  replicaCount: 1
-  image: dbeaver/cloudbeaver-ee
 
 backend:
   internal_db: true
