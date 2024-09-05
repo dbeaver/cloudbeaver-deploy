@@ -1,5 +1,10 @@
 # CloudBeaver Enterprise deployment
 
+### Version 24.2
+
+CloudBeaver Enterprise is a client-server application.
+It requires server deployment. You can deploy it on a single host (e.g. your local computer) or in a cloud.
+
 ## Installation with Docker Compose
 
 It is the simplest way to install [CloudBeaver Enterprise Edition](https://dbeaver.com/cloudbeaver-enterprise/).  
