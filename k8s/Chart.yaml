@@ -3,4 +3,4 @@ name: cb
 description: A Helm chart for CloudBeaver application
 type: application
 version: 0.0.1
-appVersion: 24.1.0
+appVersion: 24.2.0

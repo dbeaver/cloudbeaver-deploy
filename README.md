@@ -60,3 +60,6 @@ To scale your service within the cluster, follow these steps:
 REPLICA_COUNT_EE=1
 ```
 - Stop and start the cluster.
+
+### Older versions:
+- [24.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.1.0)
