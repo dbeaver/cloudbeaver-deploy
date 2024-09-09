@@ -1,0 +1,33 @@
+---
+{{- if eq .Values.ingressController "haproxy" }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-{{ .Release.Name }}
+  annotations:
+    haproxy-ingress.github.io/ingress.class: "haproxy"
+    {{- if eq "https" .Values.httpScheme }}
+    haproxy-ingress.github.io/ssl-redirect: "true"
+    {{- end }}
+    haproxy-ingress.github.io/path-rewrite: "/"
+    haproxy-ingress.github.io/cookie-persistence: "cb-node-id"
+    haproxy-ingress.github.io/proxy-body-size: "500m"
+spec:
+{{- if eq "https" .Values.httpScheme }}
+  tls:
+    - hosts:
+      - {{ .Values.cloudbeaverBaseDomain }}
+      secretName: {{ .Release.Name }}-ingress-tls
+{{- end }}
+  rules:
+  - host: "{{ .Values.cloudbeaverBaseDomain }}"
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: cloudbeaver
+              port:
+                number: 8978        
+{{ end }}

@@ -1,0 +1,13 @@
+{{- if .Values.backend.internal_db }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: db
+  name: postgres
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: db
+{{- end }}

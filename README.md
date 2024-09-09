@@ -1,5 +1,10 @@
 # CloudBeaver Enterprise deployment
 
+### Version 24.2
+
+CloudBeaver Enterprise is a client-server application.
+It requires server deployment. You can deploy it on a single host (e.g. your local computer) or in a cloud.
+
 ## Installation with Docker Compose
 
 It is the simplest way to install [CloudBeaver Enterprise Edition](https://dbeaver.com/cloudbeaver-enterprise/).  
@@ -25,6 +30,7 @@ However you can use Docker compose for additional product features such as:
    ```
 1. Open the configuration file
     - Edit the `.env` file to set configuration properties
+    - It is highly recommended to change the default database password in `CLOUDBEAVER_DB_PASSWORD` variable
 1. Start the cluster
    - `docker-compose up -d` or `docker compose up -d`
 1. Ensure the following TCP ports are available in your network stack
@@ -47,3 +53,18 @@ There are two ways to configure SSL:
 1. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. If you use the tag `latest`, you don't need to do anything during this step.
 2. Pull new docker images: `docker-compose pull` or `docker compose pull`  
 3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
+
+### Service scaling
+
+To scale your service within the cluster, follow these steps:
+
+- Open the `.env` file.
+- Modify the following environment variables to set the desired number of instances for service:
+
+```
+REPLICA_COUNT_EE=1
+```
+- Stop and start the cluster.
+
+### Older versions:
+- [24.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.1.0)

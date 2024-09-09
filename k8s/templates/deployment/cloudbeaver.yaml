@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cloudbeaver
+  name: cloudbeaver
+spec:
+  replicas: {{ .Values.cloudbeaver.replicaCount }}
+  selector:
+    matchLabels:
+      app: cloudbeaver
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        date: "{{ now | unixEpoch }}"
+        {{ .Release.Name }}-net: "true"
+        {{ .Release.Name }}-private-net: "true"
+        app: cloudbeaver
+    spec:
+      # securityContext:
+      #     runAsUser: 1000
+      #     runAsGroup: 1000
+      #     fsGroup: 1000
+      #     fsGroupChangePolicy: "Always"
+      containers:
+        - image: "{{ .Values.cloudbeaver.image }}:{{ .Values.cloudbeaver.imageTag | default .Chart.AppVersion }}"
+          imagePullPolicy: "{{ .Values.cloudbeaver.pullPolicy }}"
+          name: cloudbeaver
+          env:
+            - name: CLOUDBEAVER_DB_DRIVER
+              value: "{{ .Values.backend.cloudbeaver_db_driver }}"
+            - name: CLOUDBEAVER_DB_URL
+              value: "{{ .Values.backend.cloudbeaver_db_url }}"
+            - name: CLOUDBEAVER_DB_USER
+              value: "{{ .Values.backend.cloudbeaver_db_user }}"
+            - name: CLOUDBEAVER_DB_SCHEMA
+              value: "cb"
+            - name: CLOUDBEAVER_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-db-pass
+                  key: postgres-pass
+            - name: CLOUDBEAVER_QM_DB_DRIVER
+              value: "{{ .Values.backend.cloudbeaver_db_driver }}"
+            - name: CLOUDBEAVER_QM_DB_URL
+              value: "{{ .Values.backend.cloudbeaver_db_url }}"
+            - name: CLOUDBEAVER_QM_DB_USER
+              value: "{{ .Values.backend.cloudbeaver_db_user }}"
+            - name: CLOUDBEAVER_QM_DB_SCHEMA
+              value: "qm"
+            - name: CLOUDBEAVER_QM_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-db-pass
+                  key: postgres-pass
+          ports:
+            - containerPort: 8978
+          resources: {}
+          volumeMounts:
+            - mountPath: /opt/cloudbeaver/workspace
+              name: {{ .Release.Name }}-data
+      {{- if .Values.cloudbeaver.pullCredsName }}
+      imagePullSecrets:
+        - name: {{ .Values.cloudbeaver.pullCredsName }}
+      {{- end }}
+      hostname: cloudbeaver
+      restartPolicy: Always
+      volumes:
+        - name: {{ .Release.Name }}-data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-data
