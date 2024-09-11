@@ -56,7 +56,7 @@ There are two ways to configure SSL:
 
 ### Service scaling
 
-Before scaling the service, it is essential to configure your server in single-node mode. Run the Easy Config to set up your initial environment.
+**Important:** Before scaling the service, it is essential to configure your server in single-node mode. Run the Easy Config to set up your initial environment.
 
 To scale your service within the cluster, follow these steps:
 
