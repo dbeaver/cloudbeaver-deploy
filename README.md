@@ -54,17 +54,5 @@ There are two ways to configure SSL:
 2. Pull new docker images: `docker-compose pull` or `docker compose pull`  
 3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
 
-### Service scaling
-
-To scale your service within the cluster, follow these steps:
-
-- Open the `.env` file.
-- Modify the following environment variables to set the desired number of instances for service:
-
-```
-REPLICA_COUNT_EE=1
-```
-- Stop and start the cluster.
-
 ### Older versions:
 - [24.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.1.0)
