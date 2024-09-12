@@ -19,7 +19,7 @@ services:
       - cloudbeaver-private-net
     volumes:
       - nginx_conf_data:/etc/nginx/product-conf/
-      - nginx_ssl_data:/etc/letsencrypt/
+      - nginx_ssl_data:/etc/nginx/ssl/
     depends_on:
       - cloudbeaver
 
