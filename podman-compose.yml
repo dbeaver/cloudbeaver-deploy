@@ -14,7 +14,7 @@ networks:
 services:
   nginx:
     restart: unless-stopped
-    image: docker.io/${IMAGE_SOURCE:-dbeaver}/cloudbeaver-nginx:${CLOUDBEAVER_VERSION_TAG}
+    image: ${PODMAN_IMAGE_SOURCE:-dbeaver.io/dbeaver}/cloudbeaver-nginx:${CLOUDBEAVER_VERSION_TAG}
     user: root  
     ports:
       - 80:80
@@ -33,7 +33,7 @@ services:
   cloudbeaver:
     restart: unless-stopped
     hostname: cloudbeaver
-    image: docker.io/${IMAGE_SOURCE:-dbeaver}/cloudbeaver:${CLOUDBEAVER_VERSION_TAG}
+    image: ${PODMAN_IMAGE_SOURCE:-dbeaver.io/dbeaver}/cloudbeaver:${CLOUDBEAVER_VERSION_TAG}
     deploy:
       replicas: ${REPLICA_COUNT_EE:-1}
     volumes:
@@ -58,7 +58,7 @@ services:
   postgres:
     restart: unless-stopped
     hostname: postgres
-    image: docker.io/${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:16
+    image: ${PODMAN_IMAGE_SOURCE:-dbeaver.io/dbeaver}/cloudbeaver-postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data:z
       - ./cloudbeaver-db-init.sql:/docker-entrypoint-initdb.d/cb-init.sql:z
