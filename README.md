@@ -68,8 +68,14 @@ you have to follow these steps:
 2. Pull new docker images: `docker-compose pull` or `docker compose pull`  
 3. Run the following script to update volume ownership for compatibility with version 24.3.0’s new user permissions:
 
+For Linux:
 ```
 ./migrate_volume_ownership_24_3_0.sh
+```
+
+For Windows:
+```
+./migrate_volume_ownership_24_3_0.cmd
 ```
 4. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
 
