@@ -13,12 +13,15 @@ if "%CONTAINER_NAME%"=="" (
   exit /b 1
 )
 
-docker exec -it %CONTAINER_NAME% bash -c ^
-"if ! id \"%NEW_USER%\" &>/dev/null; then useradd -m -s /bin/bash \"%NEW_USER%\" && echo \"Created user: %NEW_USER%\"; fi && ^
-chown -R %NEW_USER%:%NEW_GROUP% %VOLUME_PATH% && ^
-find %VOLUME_PATH% -type d -exec chmod 775 {} + && ^
-find %VOLUME_PATH% -type f -exec chmod 664 {} + && ^
-chmod 775 %VOLUME_PATH%/g_GlobalConfiguration %VOLUME_PATH%/GlobalConfiguration"
+docker exec -it %CONTAINER_NAME% bash -c "if ! id \"%NEW_USER%\" &>/dev/null; then useradd -m -s /bin/bash \"%NEW_USER%\" && echo \"Created user: %NEW_USER%\"; fi"
+
+docker exec -it %CONTAINER_NAME% chown -R %NEW_USER%:%NEW_GROUP% %VOLUME_PATH%
+
+docker exec -it %CONTAINER_NAME% find %VOLUME_PATH% -type d -exec chmod 775 {} \;
+docker exec -it %CONTAINER_NAME% find %VOLUME_PATH% -type f -exec chmod 664 {} \;
+
+docker exec -it %CONTAINER_NAME% chmod 775 %VOLUME_PATH%/g_GlobalConfiguration
+docker exec -it %CONTAINER_NAME% chmod 775 %VOLUME_PATH%/GlobalConfiguration
 
 echo Volume migration completed successfully.
 endlocal
