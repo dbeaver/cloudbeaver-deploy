@@ -1,27 +1,34 @@
 @echo off
 setlocal
 
-set CONTAINER_NAME=
-for /f "delims=" %%i in ('docker ps --filter "name=cloudbeaver" --format "{{.Names}}"') do set CONTAINER_NAME=%%i
-
+set SERVICE_NAME=cloudbeaver
 set VOLUME_PATH=/opt/cloudbeaver/workspace
 set NEW_USER=dbeaver
 set NEW_GROUP=dbeaver
 
+echo Starting service '%SERVICE_NAME%'...
+docker compose up -d %SERVICE_NAME%
+
+set CONTAINER_NAME=
+:wait_for_container
+for /f "delims=" %%i in ('docker ps --filter "name=%SERVICE_NAME%" --format "{{.Names}}"') do set CONTAINER_NAME=%%i
 if "%CONTAINER_NAME%"=="" (
-  echo Error: No container found with the name 'cloudbeaver'
-  exit /b 1
+  echo Waiting for container associated with service '%SERVICE_NAME%' to start...
+  timeout /t 1 >nul
+  goto :wait_for_container
 )
 
-docker exec -it %CONTAINER_NAME% bash -c "if ! id \"%NEW_USER%\" &>/dev/null; then useradd -m -s /bin/bash \"%NEW_USER%\" && echo \"Created user: %NEW_USER%\"; fi"
+echo Container '%CONTAINER_NAME%' is up and running.
+
+docker exec -it %CONTAINER_NAME% bash -c "id '%NEW_USER%' &>/dev/null || { useradd -m -s /bin/bash '%NEW_USER%' && echo 'Created user: %NEW_USER%'; }"
 
 docker exec -it %CONTAINER_NAME% chown -R %NEW_USER%:%NEW_GROUP% %VOLUME_PATH%
 
-docker exec -it %CONTAINER_NAME% find %VOLUME_PATH% -type d -exec chmod 775 {} \;
-docker exec -it %CONTAINER_NAME% find %VOLUME_PATH% -type f -exec chmod 664 {} \;
-
-docker exec -it %CONTAINER_NAME% chmod 775 %VOLUME_PATH%/g_GlobalConfiguration
-docker exec -it %CONTAINER_NAME% chmod 775 %VOLUME_PATH%/GlobalConfiguration
+docker exec -it %CONTAINER_NAME% bash -c "find '%VOLUME_PATH%' -type d -exec chmod 775 {} +"
+docker exec -it %CONTAINER_NAME% bash -c "find '%VOLUME_PATH%' -type f -exec chmod 664 {} +"
 
 echo Volume migration completed successfully.
+
+docker compose down %SERVICE_NAME%
+
 endlocal
