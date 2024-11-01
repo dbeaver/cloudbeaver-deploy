@@ -64,9 +64,7 @@ So if you want to update Cloudbeaver:
 
 you have to follow these steps:
 
-1. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. If you use the tag `latest`, you don't need to do anything during this step.
-2. Pull new docker images: `docker-compose pull` or `docker compose pull`  
-3. Run the following script to update volume ownership for compatibility with version 24.3.0’s new user permissions:
+1. Run the following script to update volume ownership for compatibility with version 24.3.0’s new user permissions:
 
 For Linux:
 ```
@@ -77,6 +75,8 @@ For Windows:
 ```
 ./migrate_volume_ownership_24_3_0.cmd
 ```
+2. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. If you use the tag `latest`, you don't need to do anything during this step.
+3. Pull new docker images: `docker-compose pull` or `docker compose pull`  
 4. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
 
 ### Older versions:
