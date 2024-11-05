@@ -15,11 +15,12 @@ services:
   nginx:
     restart: unless-stopped
     image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver-nginx:${CLOUDBEAVER_VERSION_TAG}
-    user: root  
     ports:
-      - 80:80
-      - 443:443
+      - 80:8080
+      - 443:8443
     environment:
+      - LISTEN_PORT_HTTP=8080
+      - LISTEN_PORT_HTTPS=8443
       - REPLICA_COUNT_EE=${REPLICA_COUNT_EE:-1}
       - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-dbeaver}
       - CLOUDBEAVER_SERVICE_PORT=${CLOUDBEAVER_SERVICE_PORT:-8978}
