@@ -34,6 +34,7 @@ services:
       replicas: ${REPLICA_COUNT_EE:-1}
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
+      - ./certs/:/opt/cloudbeaver/conf/certificates/
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
       - CLOUDBEAVER_DB_URL=${CLOUDBEAVER_DB_URL}

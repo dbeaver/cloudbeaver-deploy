@@ -27,6 +27,7 @@ services:
     restart: unless-stopped
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
+      - ./certs/:/opt/cloudbeaver/conf/certificates/
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
       - CLOUDBEAVER_DB_URL=${CLOUDBEAVER_DB_URL}
