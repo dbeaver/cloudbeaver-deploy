@@ -6,6 +6,7 @@
 version: '3'
 volumes:
   cloudbeaver: {}
+  cloudbeaver_certs: {}
   postgres_data: {}
   nginx_ssl_data: {}
   nginx_conf_data: {}
@@ -38,7 +39,7 @@ services:
       replicas: ${REPLICA_COUNT_EE:-1}
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace:z
-      - ./certs/:/opt/cloudbeaver/conf/certificates/:z
+      - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/:z
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
       - CLOUDBEAVER_DB_URL=${CLOUDBEAVER_DB_URL}

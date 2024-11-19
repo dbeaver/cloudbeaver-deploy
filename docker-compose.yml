@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   cloudbeaver: {}
+  cloudbeaver_certs: {}
   postgres_data: {}
   nginx_ssl_data: {}
   nginx_conf_data: {}
@@ -12,7 +13,7 @@ networks:
 services:
   nginx:
     restart: unless-stopped
-    image: $IMAGE_SOURCE/cloudbeaver-nginx:${CLOUDBEAVER_VERSION_TAG}
+    image: $IMAGE_SOURCE/cloudbeaver-nginx:latest
     ports:
       - 80:80
       - 443:443
@@ -34,7 +35,7 @@ services:
       replicas: ${REPLICA_COUNT_EE:-1}
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
-      - ./certs/:/opt/cloudbeaver/conf/certificates/
+      - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
       - CLOUDBEAVER_DB_URL=${CLOUDBEAVER_DB_URL}
