@@ -54,5 +54,19 @@ There are two ways to configure SSL:
 2. Pull new docker images: `docker-compose pull` or `docker compose pull`  
 3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
 
+### Postgres update procedure
+
+If you want to update your PostgreSQL to version 17, follow these steps:
+
+1. Navigate to `cloudbeaver-deploy/`
+2. Stop the cluster: `docker-compose down` or `docker compose down`
+3. Run the update script: `./cloudbeaver-postgres-upgrade.sh`
+4. Update the PostgreSQL version in your Docker Compose file to 17 as shown
+
+```
+${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:17
+```
+5. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
+
 ### Older versions:
 - [24.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.1.0)
