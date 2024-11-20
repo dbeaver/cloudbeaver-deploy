@@ -13,7 +13,7 @@ networks:
 services:
   nginx:
     restart: unless-stopped
-    image: $IMAGE_SOURCE/cloudbeaver-nginx:latest
+    image: $IMAGE_SOURCE/cloudbeaver-nginx:${CLOUDBEAVER_VERSION_TAG}
     ports:
       - 80:80
       - 443:443
