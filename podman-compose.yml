@@ -33,7 +33,7 @@ services:
   cloudbeaver:
     restart: unless-stopped
     hostname: cloudbeaver
-    image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver:${CLOUDBEAVER_VERSION_TAG}
+    image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver-ee:${CLOUDBEAVER_VERSION_TAG}
     deploy:
       replicas: ${REPLICA_COUNT_EE:-1}
     volumes:
