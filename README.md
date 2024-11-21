@@ -38,6 +38,9 @@ However you can use Docker compose for additional product features such as:
    - 443/tcp (for HTTPS access)
 1. Open `http://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
 
+### Stopping the cluster
+`docker-compose down`
+
 ### Configuring SSL (HTTPS)
 
 There are two ways to configure SSL:
@@ -46,8 +49,18 @@ There are two ways to configure SSL:
     You can setup organization and deployment domains.
 2. You can issue you own SSL cenrtificate and configure it manually by editing nginx config.
 
-### Stopping the cluster
-`docker-compose down`
+### Podman requirements
+
+as user `root` run following commands before [Configuring and starting the CloudBeaver cluster](#configuring-and-starting-team-edition-cluster):
+1. ```loginctl enable-linger 1000```
+2. ```echo 'net.ipv4.ip_unprivileged_port_start=80' >> /etc/sysctl.conf```
+3. ```sysctl -p```
+
+on step 4 of [Configuring and starting the CloudBeaver cluster](#configuring-and-starting-team-edition-cluster) use `podman-compose` tool intead of `docker-compose` and on step 4 define compose file name:
+```
+podman-compose -f podman-compose.yml up -d
+```
+or replace `docker-compose.yml` with `podman-compose.yml` and use `podman-compose` without compose project definition
 
 ### Updating the cluster
 1. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. If you use the tag `latest`, you don't need to do anything during this step.
