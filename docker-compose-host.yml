@@ -10,7 +10,7 @@ volumes:
 services:
   nginx:
     restart: unless-stopped
-    image: $IMAGE_SOURCE/cloudbeaver-nginx:${CLOUDBEAVER_VERSION_TAG}
+    image: $IMAGE_SOURCE/dbeaver-nginx:${CLOUDBEAVER_VERSION_TAG}
     network_mode: host
     environment:
       - NETWORK_MODE=host
@@ -49,7 +49,7 @@ services:
     restart: unless-stopped
     hostname: postgres
     network_mode: host
-    image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:16
+    image: ${IMAGE_SOURCE:-dbeaver}/dbeaver-postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./cloudbeaver-db-init.sql:/docker-entrypoint-initdb.d/cb-init.sql
