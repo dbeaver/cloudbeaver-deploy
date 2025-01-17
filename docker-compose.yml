@@ -4,16 +4,16 @@ volumes:
   cloudbeaver: {}
   cloudbeaver_certs: {}
   postgres_data: {}
-  nginx_ssl_data: {}
-  nginx_conf_data: {}
+  haproxy_ssl_data: {}
+  haproxy_conf_data: {}
 
 networks:
   cloudbeaver-private-net:
 
 services:
-  nginx:
+  haproxy:
     restart: unless-stopped
-    image: $IMAGE_SOURCE/cloudbeaver-nginx:${CLOUDBEAVER_VERSION_TAG}
+    image: $IMAGE_SOURCE/cloudbeaver-haproxy:${CLOUDBEAVER_VERSION_TAG}
     ports:
       - 80:8080
       - 443:8443
@@ -22,8 +22,8 @@ services:
     networks:
       - cloudbeaver-private-net
     volumes:
-      - nginx_conf_data:/etc/nginx/product-conf/
-      - nginx_ssl_data:/etc/nginx/ssl/
+      - haproxy_conf_data:/etc/haproxy/conf/
+      - haproxy_ssl_data:/etc/haproxy/ssl/
     depends_on:
       - cloudbeaver
 
@@ -47,6 +47,7 @@ services:
       - CLOUDBEAVER_QM_DB_USER=${CLOUDBEAVER_QM_DB_USER}
       - CLOUDBEAVER_QM_DB_PASSWORD=${CLOUDBEAVER_QM_DB_PASSWORD}
       - CLOUDBEAVER_QM_DB_SCHEMA=${CLOUDBEAVER_QM_DB_SCHEMA}
+      - CLOUDBEAVER_DMSVC_URL=http://haproxy:11000
     expose:
       - ${CLOUDBEAVER_WEB_SERVER_PORT:-8978}
     depends_on:
