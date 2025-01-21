@@ -10,7 +10,7 @@ volumes:
 services:
   haproxy:
     restart: unless-stopped
-    image: $IMAGE_SOURCE/cloudbeaver-haproxy:${CLOUDBEAVER_VERSION_TAG}
+    image: $IMAGE_SOURCE/cloudbeaver-proxy:${CLOUDBEAVER_VERSION_TAG}
     network_mode: host
     environment:
       - NETWORK_MODE=host

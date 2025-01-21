@@ -13,7 +13,7 @@ networks:
 services:
   haproxy:
     restart: unless-stopped
-    image: $IMAGE_SOURCE/cloudbeaver-haproxy:${CLOUDBEAVER_VERSION_TAG}
+    image: $IMAGE_SOURCE/cloudbeaver-proxy:${CLOUDBEAVER_VERSION_TAG}
     ports:
       - 80:8080
       - 443:8443

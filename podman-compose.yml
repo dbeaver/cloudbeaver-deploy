@@ -15,7 +15,7 @@ networks:
 services:
   haproxy:
     restart: unless-stopped
-    image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver-haproxy:${CLOUDBEAVER_VERSION_TAG}
+    image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver-proxy:${CLOUDBEAVER_VERSION_TAG}
     ports:
       - 80:8080
       - 443:8443
