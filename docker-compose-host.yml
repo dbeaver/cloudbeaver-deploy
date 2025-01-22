@@ -4,21 +4,21 @@ volumes:
   cloudbeaver: {}
   cloudbeaver_certs: {}
   postgres_data: {}
-  haproxy_ssl_data: {}
-  haproxy_conf_data: {}
+  web_proxy_ssl_data: {}
+  web_proxy_conf_data: {}
 
 services:
-  haproxy:
+  web-proxy:
     restart: unless-stopped
-    image: $IMAGE_SOURCE/cloudbeaver-proxy:${CLOUDBEAVER_VERSION_TAG}
+    image: $IMAGE_SOURCE/haproxy:${CLOUDBEAVER_VERSION_TAG}
     network_mode: host
     environment:
       - NETWORK_MODE=host
       - LISTEN_PORT_HTTP=80
       - LISTEN_PORT_HTTPS=443
     volumes:
-      - haproxy_conf_data:/etc/haproxy/conf/
-      - haproxy_ssl_data:/etc/haproxy/ssl/
+      - web_proxy_conf_data:/etc/haproxy/conf/
+      - web_proxy_ssl_data:/etc/haproxy/ssl/
     depends_on:
       - cloudbeaver
 
