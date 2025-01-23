@@ -8,8 +8,8 @@ volumes:
   cloudbeaver: {}
   cloudbeaver_certs: {}
   postgres_data: {}
-  web_proxy_ssl_data: {}
-  web_proxy_conf_data: {}
+  nginx_ssl_data: {}
+  nginx_conf_data: {}
 networks:
   cloudbeaver-private-net: null
 services:
@@ -24,8 +24,8 @@ services:
     networks:
       - cloudbeaver-private-net
     volumes:
-      - web_proxy_conf_data:/etc/haproxy/conf/:z
-      - web_proxy_ssl_data:/etc/haproxy/ssl/:z
+      - nginx_conf_data:/etc/haproxy/conf/:z
+      - nginx_ssl_data:/etc/haproxy/ssl/:z
     depends_on:
       - cloudbeaver
   cloudbeaver:
