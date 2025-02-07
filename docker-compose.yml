@@ -22,7 +22,7 @@ services:
     networks:
       - cloudbeaver-private-net
     volumes:
-      - nginx_conf_data:/etc/haproxy/conf/
+      - web_proxy_data:/etc/haproxy/conf/
       - nginx_ssl_data:/etc/haproxy/ssl/
     depends_on:
       - cloudbeaver
