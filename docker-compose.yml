@@ -5,7 +5,7 @@ volumes:
   cloudbeaver_certs: {}
   postgres_data: {}
   nginx_ssl_data: {}
-  nginx_conf_data: {}
+  web_proxy_data: {}
 
 networks:
   cloudbeaver-private-net:
