@@ -115,7 +115,7 @@ variable "cloudbeaver-env" {
   },
   {
       "name": "CLOUDBEAVER_PUBLIC_URL",
-      "value": ""
+      "value": "test-domain-name.databases.team"
   }]
 }
 
