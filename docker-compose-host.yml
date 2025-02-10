@@ -53,6 +53,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./cloudbeaver-db-init.sql:/docker-entrypoint-initdb.d/cb-init.sql
+      - ./trusted-cacerts/:/opt/cloudbeaver/conf/certificates/custom/
     environment:
       - POSTGRES_DB=cloudbeaver
       - POSTGRES_USER=${CLOUDBEAVER_DB_USER}
