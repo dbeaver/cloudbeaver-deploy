@@ -1,0 +1,1 @@
+You can copy trusted CA certificates (\*.crt or \*.pem files) into this directory to allow to use custom CA by the server.
