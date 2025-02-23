@@ -61,7 +61,6 @@ services:
     image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./cloudbeaver-db-init.sql:/docker-entrypoint-initdb.d/cb-init.sql
     environment:
       - POSTGRES_DB=cloudbeaver
       - POSTGRES_USER=${CLOUDBEAVER_DB_USER}
