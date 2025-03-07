@@ -25,7 +25,7 @@ variable "cloudbeaver_image_name" {
 variable "cloudbeaver_version" {
   description = "The version of the cluster you want to deploy"
   type = string
-  default = "24.3.0"
+  default = "ea"
 }
 
 variable "alb_certificate_Identifier" {
