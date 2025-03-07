@@ -10,6 +10,13 @@
 
 [//]: # (* [Nginx load balancer]&#40;https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/&#41; and [Kubernetes Helm plugin]&#40;https://helm.sh/docs/topics/plugins/&#41; added to your `k8s`)
 
+### User and permissions changes
+
+Starting from CloudBeaver v25.0 process inside the container now runs as the ‘dbeaver’ user (‘UID=8978’), instead of ‘root’.  
+If a user with ‘UID=8978’ already exists in your environment, permission conflicts may occur.  
+Additionally, the default Docker volumes directory’s ownership has changed.  
+Previously, the volumes were owned by the ‘root’ user, but now they are owned by the ‘dbeaver’ user (‘UID=8978’).  
+
 ### How to run services
 - Clone this repo from GitHub: `git clone https://github.com/dbeaver/cloudbeaver-deploy`
 - `cd cloudbeaver-deploy/k8s`

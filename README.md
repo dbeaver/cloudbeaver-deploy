@@ -1,6 +1,6 @@
 # CloudBeaver Enterprise deployment
 
-### Version 24.3
+### Version 25.0
 
 CloudBeaver Enterprise is a client-server application.
 It requires server deployment. You can deploy it on a single host (e.g. your local computer) or in a cloud.
@@ -22,6 +22,13 @@ However you can use Docker compose for additional product features such as:
 - [Docker](https://docs.docker.com/engine/install/ubuntu/) installed. Make sure you have chosen the right OS distro.
 - [docker-compose](https://docs.docker.com/compose/install/) binary installed and added to your PATH variable. Supported versions 2.10 and above
     - If you install `docker-compose-plugin`, you must use the `docker compose` command instead of `docker-compose`.
+
+### User and permissions changes
+
+Starting from CloudBeaver v25.0 process inside the container now runs as the ‘dbeaver’ user (‘UID=8978’), instead of ‘root’.  
+If a user with ‘UID=8978’ already exists in your environment, permission conflicts may occur.  
+Additionally, the default Docker volumes directory’s ownership has changed.  
+Previously, the volumes were owned by the ‘root’ user, but now they are owned by the ‘dbeaver’ user (‘UID=8978’).  
 
 ### Configuring and starting the CloudBeaver cluster
 1. Clone repository
@@ -68,5 +75,6 @@ or replace `docker-compose.yml` with `podman-compose.yml` and use `podman-compos
 3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
 
 ### Older versions:
+- [24.3.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.3.0)
 - [24.2.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.2.0)
 - [24.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.1.0)

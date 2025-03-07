@@ -40,20 +40,11 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: {{ .Release.Name }}-db-data
-            - name: {{ .Release.Name }}-initalize-script
-              mountPath: /docker-entrypoint-initdb.d
-              readOnly: true
       hostname: postgres
       restartPolicy: Always
       volumes:
         - name: {{ .Release.Name }}-db-data
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-db-data
-        - name: {{ .Release.Name }}-initalize-script
-          secret:
-            secretName: {{ .Release.Name }}-init-db
-            items:
-              - key: cb-init.sql
-                path: cb-init.sql
 status: {}
 {{- end }}

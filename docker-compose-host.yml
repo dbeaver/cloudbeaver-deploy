@@ -6,6 +6,7 @@ volumes:
   postgres_data: {}
   nginx_ssl_data: {}
   nginx_conf_data: {}
+  trusted_cacerts: {}
 
 services:
   nginx:
@@ -30,6 +31,7 @@ services:
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
       - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/
+      - trusted_cacerts:/opt/cloudbeaver/workspace/.data/custom/
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
       - CLOUDBEAVER_DB_URL=${CLOUDBEAVER_DB_URL}
