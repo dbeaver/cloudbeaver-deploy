@@ -6,7 +6,7 @@
 cloudbeaver:
   replicaCount: 1
   image: dbeaver/cloudbeaver-ee
-  imageTag: "24.3.0"
+  imageTag: "ea"
   pullPolicy: Always
   # pullCredsName - name of a secret config map that contains docker repo auths
   # pullCredsName: regcred
