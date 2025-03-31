@@ -15,7 +15,7 @@ networks:
 services:
   web-proxy:
     restart: unless-stopped
-    image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver-${PROXY_TYPE}:${CLOUDBEAVER_VERSION_TAG}
+    image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver-${PROXY_TYPE:-haproxy}:${CLOUDBEAVER_VERSION_TAG}
     ports:
       - 80:8080
       - 443:8443
@@ -24,8 +24,8 @@ services:
     networks:
       - cloudbeaver-private-net
     volumes:
-      - nginx_conf_data:/etc/${PROXY_TYPE}/product-conf/:z
-      - nginx_ssl_data:/etc/${PROXY_TYPE}/ssl/:z
+      - nginx_conf_data:/etc/${PROXY_TYPE:-haproxy}/product-conf/:z
+      - nginx_ssl_data:/etc/${PROXY_TYPE}:-haproxy/ssl/:z
     depends_on:
       - cloudbeaver
   cloudbeaver:

@@ -10,15 +10,15 @@ volumes:
 services:
   web-proxy:
     restart: unless-stopped
-    image: ${IMAGE_SOURCE}/cloudbeaver-${PROXY_TYPE}:${CLOUDBEAVER_VERSION_TAG}
+    image: ${IMAGE_SOURCE}/cloudbeaver-${PROXY_TYPE:-haproxy}:${CLOUDBEAVER_VERSION_TAG}
     network_mode: host
     environment:
       - NETWORK_MODE=host
       - LISTEN_PORT_HTTP=80
       - LISTEN_PORT_HTTPS=443
     volumes:
-      - nginx_conf_data:/etc/${PROXY_TYPE}/product-conf/
-      - nginx_ssl_data:/etc/${PROXY_TYPE}/ssl/
+      - nginx_conf_data:/etc/${PROXY_TYPE:-haproxy}/product-conf/
+      - nginx_ssl_data:/etc/${PROXY_TYPE:-haproxy}/ssl/
     depends_on:
       - cloudbeaver
 
