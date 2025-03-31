@@ -25,7 +25,7 @@ services:
       - cloudbeaver-private-net
     volumes:
       - nginx_conf_data:/etc/${PROXY_TYPE:-haproxy}/product-conf/:z
-      - nginx_ssl_data:/etc/${PROXY_TYPE}:-haproxy/ssl/:z
+      - nginx_ssl_data:/etc/${PROXY_TYPE:-haproxy}/ssl/:z
     depends_on:
       - cloudbeaver
   cloudbeaver:
