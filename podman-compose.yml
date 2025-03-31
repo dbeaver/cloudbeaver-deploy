@@ -14,21 +14,19 @@ volumes:
 networks:
   cloudbeaver-private-net: null
 services:
-  nginx:
+  web-proxy:
     restart: unless-stopped
-    image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver-nginx:${CLOUDBEAVER_VERSION_TAG}
+    image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver-${PROXY_TYPE:-haproxy}:${CLOUDBEAVER_VERSION_TAG}
     ports:
       - 80:8080
       - 443:8443
     environment:
-      - REPLICA_COUNT_EE=${REPLICA_COUNT_EE:-1}
-      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-dbeaver}
       - CLOUDBEAVER_WEB_SERVER_PORT=${CLOUDBEAVER_WEB_SERVER_PORT:-8978}
     networks:
       - cloudbeaver-private-net
     volumes:
-      - nginx_conf_data:/etc/nginx/product-conf/:z
-      - nginx_ssl_data:/etc/nginx/ssl/:z
+      - nginx_conf_data:/etc/${PROXY_TYPE:-haproxy}/product-conf/:z
+      - nginx_ssl_data:/etc/${PROXY_TYPE:-haproxy}/ssl/:z
     depends_on:
       - cloudbeaver
   cloudbeaver:
