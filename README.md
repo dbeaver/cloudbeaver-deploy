@@ -28,6 +28,33 @@ If a user with ‘UID=8978’ already exists in your environment, permission con
 Additionally, the default Docker volumes directory’s ownership has changed.  
 Previously, the volumes were owned by the ‘root’ user, but now they are owned by the ‘dbeaver’ user (‘UID=8978’).  
 
+### Configuring proxy server (Nginx / HAProxy)
+
+Starting from v25.1, CloudBeaver supports two types of proxy servers: Nginx and HAProxy. You can choose your preferred proxy type by setting the following variable in the .env file:
+
+`PROXY_TYPE=haproxy` # Available options: nginx, haproxy
+
+The default value is `haproxy`. Switching between proxy types is seamless: configuration files and SSL certificates are retained due to shared Docker volumes.  
+However, note that the container name has changed from `nginx` to `web-proxy`.
+
+#### Proxy listen ports
+
+When using Docker Compose with host networking mode (network_mode: host), you may configure proxy ports using these environment variables:
+```
+LISTEN_PORT_HTTP=80
+LISTEN_PORT_HTTPS=443
+```
+These variables specify which ports the proxy listens to inside the container.
+
+#### Notes for Nginx users
+
+If you use Nginx as your proxy server and customize the `COMPOSE_PROJECT_NAME` in your .env file, make sure to pass this variable explicitly to the container environment:
+```
+environment:
+  - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+```
+This step is only required for Nginx, as HAProxy resolves service names via Docker DNS automatically.
+
 ### Configuring and starting the CloudBeaver cluster
 1. Clone repository
    ```sh
