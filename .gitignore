@@ -3,3 +3,5 @@ terraform*
 values.yaml
 /.idea
 trusted-cacerts/*
+.env
+variables.tf
