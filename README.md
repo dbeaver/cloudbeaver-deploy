@@ -70,7 +70,7 @@ This step is only required for Nginx, as HAProxy resolves service names via Dock
 4. Ensure the following TCP ports are available in your network stack
     - 80/tcp
     - 443/tcp (for HTTPS access)
-5. Open `http://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
+5. Open `https://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
 
 ### Stopping the cluster
 `docker-compose down`
