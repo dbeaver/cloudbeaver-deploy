@@ -19,6 +19,7 @@
 
  **Note:** only [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/) is supported. RDS database will be set up as an internal database for this deployment.  
       - Navigate to `cloudbeaver-deploy/AWS/ecs-fargate`  
+      - Copy `variables.tf.example` to `variables.tf`
       - Open `variables.tf` file.  
       - Specify `rds_db_version`, the default is `postgres:16.1`. Only PostgreSQL version can be specified.  
       - Set the credentials for database in `cloudbeaver-db-env`. By default it is `postgres`.  

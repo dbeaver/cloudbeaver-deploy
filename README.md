@@ -60,15 +60,17 @@ This step is only required for Nginx, as HAProxy resolves service names via Dock
    ```sh
    git clone https://github.com/dbeaver/cloudbeaver-deploy
    ```
-1. Open the configuration file
+2. Open the configuration file
+    - Navigate to `cloudbeaver-deploy`
+    - Copy `.env.example` to `.env`
     - Edit the `.env` file to set configuration properties
     - It is highly recommended to change the default database password in `CLOUDBEAVER_DB_PASSWORD` variable
-1. Start the cluster
+3. Start the cluster
     - `docker-compose up -d` or `docker compose up -d`
-1. Ensure the following TCP ports are available in your network stack
+4. Ensure the following TCP ports are available in your network stack
     - 80/tcp
     - 443/tcp (for HTTPS access)
-1. Open `http://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
+5. Open `https://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
 
 ### Stopping the cluster
 `docker-compose down`
