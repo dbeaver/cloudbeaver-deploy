@@ -32,8 +32,6 @@ services:
     restart: unless-stopped
     hostname: cloudbeaver
     image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-ee:${CLOUDBEAVER_VERSION_TAG}
-    deploy:
-      replicas: ${REPLICA_COUNT_EE:-1}
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
       - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/
