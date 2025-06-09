@@ -61,6 +61,8 @@ spec:
           volumeMounts:
             - mountPath: /opt/cloudbeaver/workspace
               name: {{ .Release.Name }}-data
+            - mountPath: /opt/cloudbeaver/conf/keys
+              name: {{ .Release.Name }}-api-tokens
       {{- if .Values.cloudbeaver.pullCredsName }}
       imagePullSecrets:
         - name: {{ .Values.cloudbeaver.pullCredsName }}
@@ -71,3 +73,6 @@ spec:
         - name: {{ .Release.Name }}-data
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-data
+        - name: {{ .Release.Name }}-api-tokens
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-api-tokens
