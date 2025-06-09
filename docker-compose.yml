@@ -7,7 +7,7 @@ volumes:
   nginx_ssl_data: {}
   nginx_conf_data: {}
   trusted_cacerts: {}
-
+  api_tokens: {}
 networks:
   cloudbeaver-private-net:
 
@@ -36,6 +36,7 @@ services:
       - cloudbeaver:/opt/cloudbeaver/workspace
       - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/
       - trusted_cacerts:/opt/cloudbeaver/workspace/.data/custom/
+      - api_tokens:/opt/cloudbeaver/conf/keys/
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
       - CLOUDBEAVER_DB_URL=${CLOUDBEAVER_DB_URL}
