@@ -1,6 +1,6 @@
 # CloudBeaver Enterprise deployment
 
-### Version 25.0
+### Version 25.1
 
 CloudBeaver Enterprise is a client-server application.
 It requires server deployment. You can deploy it on a single host (e.g. your local computer) or in a cloud.
@@ -102,6 +102,7 @@ or replace `docker-compose.yml` with `podman-compose.yml` and use `podman-compos
 3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
 
 ### Older versions:
+- [25.0.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.0.0)
 - [24.3.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.3.0)
 - [24.2.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.2.0)
 - [24.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.1.0)
