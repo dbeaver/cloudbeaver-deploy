@@ -7,19 +7,19 @@ volumes:
   nginx_ssl_data: {}
   nginx_conf_data: {}
   trusted_cacerts: {}
-
+  api_tokens: {}
 services:
   web-proxy:
     restart: unless-stopped
-    image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-${PROXY_TYPE:-haproxy}:${CLOUDBEAVER_VERSION_TAG}
+    image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-${PROXY_TYPE:-nginx}:${CLOUDBEAVER_VERSION_TAG}
     network_mode: host
     environment:
       - NETWORK_MODE=host
       - LISTEN_PORT_HTTP=80
       - LISTEN_PORT_HTTPS=443
     volumes:
-      - nginx_conf_data:/etc/${PROXY_TYPE:-haproxy}/product-conf/
-      - nginx_ssl_data:/etc/${PROXY_TYPE:-haproxy}/ssl/
+      - nginx_conf_data:/etc/${PROXY_TYPE:-nginx}/product-conf/
+      - nginx_ssl_data:/etc/${PROXY_TYPE:-nginx}/ssl/
     depends_on:
       - cloudbeaver
 
@@ -32,6 +32,7 @@ services:
       - cloudbeaver:/opt/cloudbeaver/workspace
       - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/
       - trusted_cacerts:/opt/cloudbeaver/workspace/.data/custom/
+      - api_tokens:/opt/cloudbeaver/conf/keys/
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
       - CLOUDBEAVER_DB_URL=${CLOUDBEAVER_DB_URL}
