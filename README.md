@@ -32,9 +32,9 @@ Previously, the volumes were owned by the ‘root’ user, but now they are owne
 
 Starting from v25.1, CloudBeaver supports two types of proxy servers: Nginx and HAProxy. You can choose your preferred proxy type by setting the following variable in the .env file:
 
-`PROXY_TYPE=haproxy` # Available options: nginx, haproxy
+`PROXY_TYPE=nginx` # Available options: nginx, haproxy
 
-The default value is `haproxy`. Switching between proxy types is seamless: configuration files and SSL certificates are retained due to shared Docker volumes.  
+The default value is `nginx`. Switching between proxy types is seamless: configuration files and SSL certificates are retained due to shared Docker volumes.  
 However, note that the container name has changed from `nginx` to `web-proxy`.
 
 #### Proxy listen ports
