@@ -27,13 +27,13 @@ Previously, the volumes were owned by the ‘root’ user, but now they are owne
   - If you set the *HTTPS* endpoint scheme, then create a valid TLS certificate for the domain endpoint `cloudbeaverBaseDomain` and place it into `k8s/ingressSsl`:  
     Certificate: `ingressSsl/fullchain.pem`  
     Private Key: `ingressSsl/privkey.pem`
-- Deploy Cloudbeaver with Helm: `helm install cloudbeaver`
+- Deploy Cloudbeaver with Helm: `helm install cloudbeaver .`
 
 ### Version update procedure.
 
 - Change directory to `cloudbeaver-deploy/k8s`.
 - Change value of `imageTag` in configuration file `values.yaml` with a preferred version. Go to next step if tag `latest` set.
-- Upgrade cluster: `helm upgrade cloudbeaver` 
+- Upgrade cluster: `helm upgrade cloudbeaver .` 
 
 ### OpenShift deployment
 
