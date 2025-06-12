@@ -48,6 +48,13 @@ resource "aws_ecs_task_definition" "cloudbeaver-task" {
       root_directory = "/"
     }
   }
+  volume {
+    name = "api_tokens"
+    efs_volume_configuration {
+      file_system_id = aws_efs_file_system.api_tokens.id
+      root_directory = "/"
+    }
+  }
 
   container_definitions = jsonencode([{
     name        = "${var.task_name}"
@@ -63,10 +70,16 @@ resource "aws_ecs_task_definition" "cloudbeaver-task" {
                     "awslogs-stream-prefix": "cb"
                 }
     }
-    mountPoints = [{
-              "containerPath": "/opt/cloudbeaver/workspace",
-              "sourceVolume": "cloudbeaver_data"
-    }]
+    mountPoints = [
+      {
+        containerPath = "/opt/cloudbeaver/workspace",
+        sourceVolume  = "cloudbeaver_data"
+      },
+      {
+        containerPath = "/opt/cloudbeaver/conf/keys/"
+        sourceVolume  = "api_tokens"
+      }
+    ]
     portMappings = [{
       name = "${var.task_name}"
       protocol      = "tcp"
