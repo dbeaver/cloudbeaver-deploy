@@ -28,6 +28,58 @@ If a user with ‘UID=8978’ already exists in your environment, permission con
 Additionally, the default Docker volumes directory’s ownership has changed.  
 Previously, the volumes were owned by the ‘root’ user, but now they are owned by the ‘dbeaver’ user (‘UID=8978’).  
 
+### Upgrade from version ≤ 24.3.0 to 25.2.0+ (volume-ownership migration)  
+
+If you are on ≤ 24.3.0, **do not** jump directly to 25.2.0 or later.  
+First upgrade to 25.1.0, let the stack start once, then upgrade to your desired 25.x.0 tag.  
+
+**Reason:**  
+25.1.0 still starts as `root` and automatically chowns every files in the volumes to ‘dbeaver’ user (‘UID=8978’).  
+From 25.2.0 onward the container itself runs only as `dbeaver`, so the volumes must already belong to that UID/GID.  
+
+### Bind-volume configuration
+
+**Use this section only if you want to replace Docker-managed volumes with host-side bind mounts.** 
+
+Since the container now runs as a non-root user, any host directory mountedread-write must be owned by that same UID/GID.
+Using the steps above guarantees seamless file-system access while retaining a secure permission scheme on the host.
+
+1. Create the folders and set ownership
+
+CloudBeaver containers (v25.2.0+) run as the `dbeaver` user (UID 8978, GID 8978).  
+Any host directory that is mounted read-write must therefore be owned by the same UID/GID.
+
+```
+# Create the directories (replace the paths with ones that suit your host)
+sudo mkdir -p -m 750 \
+  /var/dbeaver/cloudbeaver/workspace        \
+  /var/dbeaver/cloudbeaver/certificates     \
+  /var/dbeaver/cloudbeaver/custom           \
+  /var/dbeaver/cloudbeaver/keys
+
+# Give them to the container’s user and group (UID=8978, GID=8978)
+sudo chown -R 8978:8978 \
+  /var/dbeaver/cloudbeaver/workspace        \
+  /var/dbeaver/cloudbeaver/certificates     \
+  /var/dbeaver/cloudbeaver/custom           \
+  /var/dbeaver/cloudbeaver/keys
+
+```
+
+2. Reference the host folders in docker-compose.yml
+
+Replace each named volume you want to turn into a bind mount using the following template:
+
+```
+volumes:
+  <compose-volume-name>:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /var/dbeaver/cloudbeaver/<matching-folder>
+```
+
 ### Configuring proxy server (Nginx / HAProxy)
 
 Starting from v25.1, CloudBeaver supports two types of proxy servers: Nginx and HAProxy. You can choose your preferred proxy type by setting the following variable in the .env file:

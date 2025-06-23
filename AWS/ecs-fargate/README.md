@@ -55,6 +55,22 @@
 
    ![alt text](images/image-2.png)
 
+### User and permissions changes
+
+Starting from CloudBeaver v25.0 process inside the container now runs as the ‘dbeaver’ user (‘UID=8978’), instead of ‘root’.  
+If a user with ‘UID=8978’ already exists in your environment, permission conflicts may occur.  
+Additionally, the default Docker volumes directory’s ownership has changed.  
+Previously, the volumes were owned by the ‘root’ user, but now they are owned by the ‘dbeaver’ user (‘UID=8978’).  
+
+### Upgrade from version ≤ 24.3.0 to 25.2.0+ (volume-ownership migration)  
+
+If you are on ≤ 24.3.0, **do not** jump directly to 25.2.0 or later.  
+First upgrade to 25.1.0, let the stack start once, then upgrade to your desired 25.x.0 tag.  
+
+**Reason:**  
+25.1.0 still starts as `root` and automatically chowns every files in the volumes to ‘dbeaver’ user (‘UID=8978’).  
+From 25.2.0 onward the container itself runs only as `dbeaver`, so the volumes must already belong to that UID/GID.  
+
 ### Version update
 
 1. Navigate to the `cloudbeaver-deploy/AWS/ecs-fargate` directory.
