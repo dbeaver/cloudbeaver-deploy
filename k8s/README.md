@@ -20,20 +20,20 @@ Previously, the volumes were owned by the ‘root’ user, but now they are owne
 ### How to run services
 - Clone this repo from GitHub: `git clone https://github.com/dbeaver/cloudbeaver-deploy`
 - `cd cloudbeaver-deploy/k8s`
-- `cp ./values.example.yaml ./values.yaml`
+- `cp ./values.yaml.example ./values.yaml`
 - Edit chart values in `values.yaml` (use any text editor)
 - Configure domain and SSL certificate (optional)
   - Add an A record in your DNS hosting for a value of `cloudbeaverBaseDomain` variable with load balancer IP address.
   - If you set the *HTTPS* endpoint scheme, then create a valid TLS certificate for the domain endpoint `cloudbeaverBaseDomain` and place it into `k8s/ingressSsl`:  
     Certificate: `ingressSsl/fullchain.pem`  
     Private Key: `ingressSsl/privkey.pem`
-- Deploy Cloudbeaver with Helm: `helm install cloudbeaver`
+- Deploy Cloudbeaver with Helm: `helm install cloudbeaver ./ --values ./values.yaml`
 
 ### Version update procedure.
 
 - Change directory to `cloudbeaver-deploy/k8s`.
 - Change value of `imageTag` in configuration file `values.yaml` with a preferred version. Go to next step if tag `latest` set.
-- Upgrade cluster: `helm upgrade cloudbeaver` 
+- Upgrade cluster: `helm upgrade cloudbeaver ./ --values ./values.yaml` 
 
 ### OpenShift deployment
 
