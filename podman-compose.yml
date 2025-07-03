@@ -40,7 +40,7 @@ services:
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace:z
       - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/:z
-      - trusted_cacerts:/opt/cloudbeaver/workspace/.data/custom/:z
+      - trusted_cacerts:/opt/cloudbeaver/conf/custom/:z
       - api_tokens:/opt/cloudbeaver/conf/keys/:z
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
