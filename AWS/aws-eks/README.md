@@ -73,8 +73,7 @@ Once this is set up, you can deploy CloudBeaver EE by following [this guide](../
 
 ## AWS ALB configuration for Kubernetes deployment
 
-If you want to use [AWS Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) as ingress controller, follow this instruction.  
-This is not necessary, you can use `nginx` by default as a ingress controller.
+This deployment option can use Nginx, HAProxy, or AWS ALB as an ingress controller. If you want to use [AWS Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html), follow the steps below.
 
 Install `AWS CLI`: If `AWS CLI` is not installed yet, install it by following the instructions on the [official AWS CLI website](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html).  
 
