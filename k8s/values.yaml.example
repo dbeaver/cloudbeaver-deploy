@@ -36,8 +36,8 @@ aws:
     # alb.ingress.kubernetes.io/subnets: "subnet-12345,subnet-67890"
     # alb.ingress.kubernetes.io/security-groups: "sg-12345"
 
-# Cloud storage configuration for persistent volumes
-# By default is None, it means not cloud deployment  
+# Cloud storage configuration for persistent volumes.
+# The default value is None, indicating it is not a cloud deployment.
 # AWS - type: efs storageClassName: efs-sc
 cloudProvider: None  # Options: None, aws
 storage:
