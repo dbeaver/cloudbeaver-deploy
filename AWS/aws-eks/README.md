@@ -75,7 +75,7 @@ Once this is set up, you can deploy CloudBeaver EE by following [this guide](../
 
 This deployment option can use Nginx, HAProxy, or AWS ALB as an ingress controller. If you want to use [AWS Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html), follow the steps below.
 
-Install `AWS CLI`: If `AWS CLI` is not installed yet, install it by following the instructions on the [official AWS CLI website](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html).  
+Install `AWS CLI`: If `AWS CLI` is not installed yet, follow the instructions on the [official AWS CLI website](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html).  
 
 Install `eksctl`: `eksctl` is a command-line utility for creating and managing EKS clusters. Install eksctl by following the instructions on the [official eksctl website](https://eksctl.io/installation/).  
 
