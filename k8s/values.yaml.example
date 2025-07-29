@@ -12,7 +12,7 @@ cloudbeaver:
   # pullCredsName: regcred
 
 # Ingress Values
-# Supported ingress controllers: nginx, haproxy
+# Supported ingress controllers: nginx, haproxy, alb
 ingressController: nginx
 # Domain name for ingress endpoint
 cloudbeaverBaseDomain: "cloudbeaver.local"
@@ -23,6 +23,28 @@ httpScheme: http
 httpsCertPath: "ingressSsl"
 # certificate: <httpsCertPath>/fullchain.pem
 # certificate key: <httpsCertPath>/privkey.pem
+
+# AWS-specific configuration (only used when ingressController is "alb")
+aws:
+  # AWS region (optional)
+  region: us-east-1
+  # ACM certificate ARN for HTTPS (optional, required for ALB HTTPS)
+  certificateArn: ""
+  # Additional annotations for ALB ingress (optional)
+  annotations: {}
+    # alb.ingress.kubernetes.io/load-balancer-name: "cloudbeaver-alb"
+    # alb.ingress.kubernetes.io/subnets: "subnet-12345,subnet-67890"
+    # alb.ingress.kubernetes.io/security-groups: "sg-12345"
+
+# Cloud storage configuration for persistent volumes.
+# The default value is None, indicating it is not a cloud deployment.
+# AWS - type: efs storageClassName: efs-sc
+cloudProvider: None  # Options: None, aws
+storage:
+  type: efs
+  storageClassName: "efs-sc"
+  efs:
+    fileSystemId: ""
 
 backend:
   internal_db: true

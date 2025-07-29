@@ -7,8 +7,16 @@
 * 4Gb RAM
 * Linux or macOS as deploy host
 * `git` and `kubectl` installed
+* [Nginx load balancer](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/) and [Kubernetes Helm plugin](https://helm.sh/docs/topics/plugins/) added to your `k8s`
 
-[//]: # (* [Nginx load balancer]&#40;https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/&#41; and [Kubernetes Helm plugin]&#40;https://helm.sh/docs/topics/plugins/&#41; added to your `k8s`)
+#### Supported Ingress Controllers:
+
+* **nginx** - NGINX Ingress Controller (default)
+* **haproxy** - HAProxy Ingress Controller  
+* **alb** - AWS Application Load Balancer (for AWS EKS)
+
+For AWS EKS specific deployment instructions, see [AWS EKS deployment guide](../AWS/aws-eks/README.md).
+
 
 ### User and permissions changes
 
