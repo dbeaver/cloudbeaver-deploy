@@ -1,0 +1,12 @@
+{{- if and (eq .Values.cloudProvider "aws") (eq .Values.storage.type "efs") }}
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ .Values.storage.storageClassName }}
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap
+  fileSystemId: {{ .Values.storage.efs.fileSystemId | default "" }}
+  directoryPerms: "775"
+reclaimPolicy: Retain
+{{- end }} 

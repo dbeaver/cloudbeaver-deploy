@@ -18,8 +18,9 @@ services:
     ports:
       - 80:8080
       - 443:8443
-    env_file:
-      - .env  
+    environment:
+      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-dbeaver}
+      - CLOUDBEAVER_WEB_SERVER_PORT=${CLOUDBEAVER_WEB_SERVER_PORT:-8978}
     networks:
       - cloudbeaver-private-net
     volumes:
