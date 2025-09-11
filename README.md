@@ -28,6 +28,68 @@ If a user with ‘UID=8978’ already exists in your environment, permission con
 Additionally, the default Docker volumes directory’s ownership has changed.  
 Previously, the volumes were owned by the ‘root’ user, but now they are owned by the ‘dbeaver’ user (‘UID=8978’).  
 
+### Upgrade from version ≤ 25.0.0 to 25.2.0+ (volume-ownership migration)  
+
+If you are on ≤ 25.0.0, **do not** jump directly to 25.2.0 or later.  
+First upgrade to 25.1.0, let the stack start once, then upgrade to your desired 25.x.0 tag.  
+
+**Reason:**  
+25.1.0 still starts as `root` and automatically chowns every files in the volumes to ‘dbeaver’ user (‘UID=8978’).  
+From 25.2.0 onward the container itself runs only as `dbeaver`, so the volumes must already belong to that UID/GID.  
+
+Minimal steps:  
+
+1. Pull and run 25.1.0 once (does the chown)  
+```
+git checkout 25.1.0
+Set the version in your .env file to 25.1.0
+docker compose pull
+docker compose up -d  
+docker compose down            # stop it after the first successful start  
+```
+
+2. Pull and run your target 25.2.0+ image  
+```
+git checkout 25.2.0 (or later version)
+Change the version in .env to your target 25.2.0+ tag
+docker compose pull
+docker compose up -d  
+```
+
+### Bind-volume configuration
+
+**Use this section only if you want to replace Docker-managed volumes with host-side bind mounts.** 
+
+Since the container now runs as a non-root user, any host directory mountedread-write must be owned by that same UID/GID.
+Using the steps above guarantees seamless file-system access while retaining a secure permission scheme on the host.
+
+1. Create the folders and set ownership
+
+CloudBeaver containers (v25.2.0+) run as the `dbeaver` user (UID 8978, GID 8978).  
+Any host directory that is mounted read-write must therefore be owned by the same UID/GID.
+
+```
+# Create the directories (replace the paths with ones that suit your host)
+sudo mkdir -p -m 750 /var/dbeaver/cloudbeaver/{workspace,certificates,custom,keys}
+
+# Give them to the container’s user and group (UID=8978, GID=8978)
+sudo chown -R 8978:8978 /var/dbeaver/cloudbeaver/{workspace,certificates,custom,keys}
+```
+
+2. Reference the host folders in docker-compose.yml
+
+Replace each named volume you want to turn into a bind mount using the following template:
+
+```
+volumes:
+  <compose-volume-name>:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /var/dbeaver/cloudbeaver/<matching-folder>
+```
+
 ### Configuring proxy server (Nginx / HAProxy)
 
 Starting from v25.1, CloudBeaver supports two types of proxy servers: Nginx and HAProxy. You can choose your preferred proxy type by setting the following variable in the .env file:
@@ -97,9 +159,12 @@ podman-compose -f podman-compose.yml up -d
 or replace `docker-compose.yml` with `podman-compose.yml` and use `podman-compose` without compose project definition
 
 ### Updating the cluster
-1. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. If you use the tag `latest`, you don't need to do anything during this step.
-2. Pull new docker images: `docker-compose pull` or `docker compose pull`
-3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
+
+1. Navigate to `cloudbeaver-deploy`
+2. Run command `git checkout %version%`
+3. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. If you use the tag `latest`, you don't need to do anything during this step.
+4. Pull new docker images: `docker-compose pull` or `docker compose pull`
+5. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
 
 ## Kubernetes/Helm Deployment
 
