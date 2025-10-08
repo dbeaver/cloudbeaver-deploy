@@ -33,6 +33,7 @@ services:
     restart: unless-stopped
     hostname: cloudbeaver
     image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-ee:${CLOUDBEAVER_VERSION_TAG}
+    user: "8978"
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
       - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/
