@@ -48,18 +48,11 @@ From 25.2.0 onward the container itself runs only as `dbeaver`, so the volumes m
 
 ### OpenShift deployment
 
-You need additional configuration changes
+Containers run as user `dbeaver` (UID=8978). For OpenShift deployment:
 
-- In `values.yaml` change the `ingressController` value to `haproxy`
-- Add security context  
-  Uncomment the following lines in `cloudbeaver.yaml` files in [templates/deployment](templates/deployment):
-    ```yaml
-          # securityContext:
-          #     runAsUser: 1000
-          #     runAsGroup: 1000
-          #     fsGroup: 1000
-          #     fsGroupChangePolicy: "Always"
-    ```
+1. In `values.yaml` change the `ingressController` value to `haproxy`
+2. Create and configure a ServiceAccount with appropriate SCC to run containers as UID=8978
+3. In `values.yaml` add `serviceAccountName` under `cloudbeaver` section
 
 ### Digital Ocean proxy configuration
 
