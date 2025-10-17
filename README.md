@@ -1,6 +1,6 @@
 # CloudBeaver Enterprise deployment
 
-### Version 25.2
+## Version 25.2
 
 CloudBeaver Enterprise is a client-server application.
 It requires server deployment. You can deploy it on a single host (e.g. your local computer) or in a cloud.
@@ -10,7 +10,7 @@ It requires server deployment. You can deploy it on a single host (e.g. your loc
 It is the simplest way to install [CloudBeaver Enterprise Edition](https://dbeaver.com/cloudbeaver-enterprise/).  
 All you need is a Linux, macOS, or Windows machine with Docker.
 
-CloudBeaver can be run in a [single docker container](https://dbeaver.com/docs/cloudbeaver/CloudBeaver-Enterprise-deployment-from-docker-image/).  
+CloudBeaver can be run in a [single docker container](#installation-with-docker-image).  
 However you can use Docker compose for easy web server (HTTPS) configuration.
 
 ### System requirements
@@ -85,12 +85,12 @@ There are two ways to configure SSL:
 
 ### Podman requirements
 
-as user `root` run following commands before [Configuring and starting the CloudBeaver cluster](#configuring-and-starting-team-edition-cluster):
+as user `root` run following commands before [Configuring and starting the CloudBeaver cluster](#configuring-and-starting-the-cloudbeaver-cluster):
 1. ```loginctl enable-linger 1000```
 2. ```echo 'net.ipv4.ip_unprivileged_port_start=80' >> /etc/sysctl.conf```
 3. ```sysctl -p```
 
-on step 4 of [Configuring and starting the CloudBeaver cluster](#configuring-and-starting-team-edition-cluster) use `podman-compose` tool intead of `docker-compose` and on step 4 define compose file name:
+on step 4 of [Configuring and starting the CloudBeaver cluster](#configuring-and-starting-the-cloudbeaver-cluster) use `podman-compose` tool intead of `docker-compose` and on step 4 define compose file name:
 ```
 podman-compose -f podman-compose.yml up -d
 ```
@@ -101,11 +101,49 @@ or replace `docker-compose.yml` with `podman-compose.yml` and use `podman-compos
 2. Pull new docker images: `docker-compose pull` or `docker compose pull`
 3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
 
+## Installation with Docker image
+
+CloudBeaver Enterprise can run as a single Docker container:
+
+1. Pull Docker image
+
+   ```sh
+   docker pull dbeaver/cloudbeaver-ee:latest
+   ```
+
+   > You can replace `latest` with a preferred [version tag](https://hub.docker.com/r/dbeaver/cloudbeaver-ee/tags).
+   > Use the same tag when running the container.
+
+2. Run container
+
+   ```sh
+   docker run --name cloudbeaver-ee --rm -ti -p 8978:8978 \
+     -v /var/cloudbeaver-ee/workspace:/opt/cloudbeaver/workspace \
+     dbeaver/cloudbeaver-ee:latest
+   ```
+
+   > Replace 8978 with a preferred host port.
+
+3. Access application
+
+   Open `http://<server-ip>:8978` in a web browser.
+
+### Configuring proxy server
+
+Use the official CloudBeaver web proxy for proper HTTPS configuration.
+
+You can choose between [Nginx](https://hub.docker.com/r/dbeaver/cloudbeaver-nginx/tags)
+and [HAProxy](https://hub.docker.com/r/dbeaver/cloudbeaver-haproxy/tags) images,
+or set up web proxy automatically with the [Docker Compose deployment](#installation-with-docker-compose).
+
+> **Note**: The [Domain Manager](https://dbeaver.com/docs/cloudbeaver/Domain-Manager/) is available only when running
+> with a CloudBeaver web proxy setup.
+
 ## Kubernetes/Helm Deployment
 
 For Kubernetes deployments using Helm charts, see:
 - [General Kubernetes/Helm deployment guide](k8s/README.md)
-- [AWS EKS specific deployment guide](AWS/aws-eks/eks-deployment.md)
+- [AWS EKS specific deployment guide](AWS/aws-eks/README.md)
 
 ### Older versions:
 - [25.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.1.0)
