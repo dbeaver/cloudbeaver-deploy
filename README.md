@@ -3,7 +3,11 @@
 ## Version 25.2
 
 CloudBeaver Enterprise is a client-server application.
-It requires server deployment. You can deploy it on a single host (e.g. your local computer) or in a cloud.
+It requires server deployment. You can deploy it in several ways:
+
+- [With Docker Compose](#installation-with-docker-compose)
+- [With a single Docker image](#installation-with-docker-image)
+- [With Kubernetes/Helm](#installation-with-kuberneteshelm)
 
 ## Installation with Docker Compose
 
@@ -14,19 +18,13 @@ CloudBeaver can be run in a [single docker container](#installation-with-docker-
 However you can use Docker compose for easy web server (HTTPS) configuration.
 
 ### System requirements
+
 - Minimum 4GB RAM
 - Minimum 50GB storage, > 100GB recommended
 - Ubuntu recommended
 - [Docker](https://docs.docker.com/engine/install/ubuntu/) installed. Make sure you have chosen the right OS distro.
 - [docker-compose](https://docs.docker.com/compose/install/) binary installed and added to your PATH variable. Supported versions 2.10 and above
     - If you install `docker-compose-plugin`, you must use the `docker compose` command instead of `docker-compose`.
-
-### User and permissions changes
-
-Starting from CloudBeaver v25.0 process inside the container now runs as the ‘dbeaver’ user (‘UID=8978’), instead of ‘root’.  
-If a user with ‘UID=8978’ already exists in your environment, permission conflicts may occur.  
-Additionally, the default Docker volumes directory’s ownership has changed.  
-Previously, the volumes were owned by the ‘root’ user, but now they are owned by the ‘dbeaver’ user (‘UID=8978’).  
 
 ### Configuring proxy server (Nginx / HAProxy)
 
@@ -139,11 +137,21 @@ or set up web proxy automatically with the [Docker Compose deployment](#installa
 > **Note**: The [Domain Manager](https://dbeaver.com/docs/cloudbeaver/Domain-Manager/) is available only when running
 > with a CloudBeaver web proxy setup.
 
-## Kubernetes/Helm Deployment
+## Installation with Kubernetes/Helm
 
 For Kubernetes deployments using Helm charts, see:
 - [General Kubernetes/Helm deployment guide](k8s/README.md)
 - [AWS EKS specific deployment guide](AWS/aws-eks/README.md)
+
+## User and permissions changes
+
+Starting from CloudBeaver v25.0, the process inside all CloudBeaver Enterprise containers
+(both [Docker Compose](#installation-with-docker-compose) and single [Docker image](#installation-with-docker-image)) now
+runs as the ‘dbeaver’ user (‘UID=8978’), instead of ‘root’. If a user with ‘UID=8978’ already exists in your environment,
+permission conflicts may occur.
+
+Additionally, the default Docker volumes directory’s ownership has changed.
+Previously, the volumes were owned by the ‘root’ user, but now they’re owned by the ‘dbeaver’ user (‘UID=8978’).
 
 ### Older versions:
 - [25.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.1.0)
