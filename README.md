@@ -1,6 +1,6 @@
 # CloudBeaver Enterprise deployment
 
-<span style="font-size: 2em;">Version 25.2</span>
+<big><b>Version 25.2</b></big>
 
 CloudBeaver Enterprise is a client-server application.
 It requires server deployment. You can deploy it in several ways:
