@@ -1,6 +1,6 @@
 # CloudBeaver Enterprise deployment
 
-## Version 25.2
+<span style="font-size: 2em;">Version 25.2</span>
 
 CloudBeaver Enterprise is a client-server application.
 It requires server deployment. You can deploy it in several ways:
@@ -153,7 +153,8 @@ permission conflicts may occur.
 Additionally, the default Docker volumes directory’s ownership has changed.
 Previously, the volumes were owned by the ‘root’ user, but now they’re owned by the ‘dbeaver’ user (‘UID=8978’).
 
-### Older versions:
+## Older versions
+
 - [25.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.1.0)
 - [25.0.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.0.0)
 - [24.3.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.3.0)
