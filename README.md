@@ -1,6 +1,8 @@
 # CloudBeaver Enterprise deployment
 
-### Version 25.2
+### Version 26.0 Early Access
+
+**Warning:** Please keep in mind that Early Access versions are not as stable as regular releases, and their use in a production environment is not recommended.
 
 CloudBeaver Enterprise is a client-server application.
 It requires server deployment. You can deploy it on a single host (e.g. your local computer) or in a cloud.
@@ -108,6 +110,8 @@ For Kubernetes deployments using Helm charts, see:
 - [AWS EKS specific deployment guide](AWS/aws-eks/eks-deployment.md)
 
 ### Older versions:
+- [25.3.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.3.0)
+- [25.2.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.2.0)
 - [25.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.1.0)
 - [25.0.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.0.0)
 - [24.3.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.3.0)
