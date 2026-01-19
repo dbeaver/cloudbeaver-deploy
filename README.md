@@ -59,7 +59,7 @@ This step is only required for Nginx, as HAProxy resolves service names via Dock
 
 #### Java tool options
 
-You can use the `JAVA_TOOL_OPTIONS` variable in your `.env` file to pass Java parameters to CloudBeaver when needed.
+Java does not read system environment variables. To pass Java parameters to the Java process, use the `JAVA_TOOL_OPTIONS` variable in your `.env` file.
 
 Example for proxy configuration:
 ```
