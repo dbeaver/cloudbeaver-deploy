@@ -57,6 +57,15 @@ environment:
 ```
 This step is only required for Nginx, as HAProxy resolves service names via Docker DNS automatically.
 
+#### Java tool options
+
+Java does not read system environment variables. To pass Java parameters to the Java process, use the `JAVA_TOOL_OPTIONS` variable in your `.env` file.
+
+Example for proxy configuration:
+```
+JAVA_TOOL_OPTIONS="-Dhttp.proxy.host=<proxyname> -Dhttps.proxy.host=<proxyname> -Dhttp.proxy.port=<port> -Dhttps.proxy.port=<port>"
+```
+
 ### Configuring and starting the CloudBeaver cluster
 1. Clone repository
    ```sh
