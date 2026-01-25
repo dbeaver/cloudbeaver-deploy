@@ -66,6 +66,22 @@ Example for proxy configuration:
 JAVA_TOOL_OPTIONS="-Dhttp.proxy.host=<proxyname> -Dhttps.proxy.host=<proxyname> -Dhttp.proxy.port=<port> -Dhttps.proxy.port=<port>"
 ```
 
+### Configuring public URL and domain
+
+`CLOUDBEAVER_PUBLIC_URL` specifies the base URL of the CloudBeaver web UI. It is used to configure external routing, construct absolute URLs for redirects and links.
+
+Set this variable to the exact address users will type in the browser to open CloudBeaver. Open the `.env` file and set:
+
+```
+CLOUDBEAVER_PUBLIC_URL=https://your-domain.com
+```
+
+Examples: `https://domain.yourcompany.com`, `http://192.168.1.100:8080`, `http://localhost`
+
+**Important**: Always include the protocol `http://` or `https://`, include the port if non-standard, and do not add a trailing slash. The domain in `CLOUDBEAVER_PUBLIC_URL` must match the domain name in TLS certificates.
+
+If `CLOUDBEAVER_PUBLIC_URL` is not configured or set incorrectly, you may experience issues such as: incorrect redirects, authentication failures with OAuth/SSO, or broken links.
+
 ### Configuring and starting the CloudBeaver cluster
 1. Clone repository
    ```sh
@@ -81,7 +97,7 @@ JAVA_TOOL_OPTIONS="-Dhttp.proxy.host=<proxyname> -Dhttps.proxy.host=<proxyname> 
 4. Ensure the following TCP ports are available in your network stack
     - 80/tcp
     - 443/tcp (for HTTPS access)
-5. Open `https://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
+5. Open `https://<your-domain>` or `http://<server-ip>:<port>` to access the app. This URL will open the admin panel when the app is first started. This URL must match the `CLOUDBEAVER_PUBLIC_URL` value. See [Configuring public URL and domain](#configuring-public-url-and-domain) for details.
 
 ### Stopping the cluster
 `docker-compose down`
