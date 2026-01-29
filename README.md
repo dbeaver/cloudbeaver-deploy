@@ -57,6 +57,15 @@ environment:
 ```
 This step is only required for Nginx, as HAProxy resolves service names via Docker DNS automatically.
 
+#### Java tool options
+
+Java does not read system environment variables. To pass Java parameters to the Java process, use the `JAVA_TOOL_OPTIONS` variable in your `.env` file.
+
+Example for proxy configuration:
+```
+JAVA_TOOL_OPTIONS="-Dhttp.proxy.host=<proxyname> -Dhttps.proxy.host=<proxyname> -Dhttp.proxy.port=<port> -Dhttps.proxy.port=<port>"
+```
+
 ### Configuring and starting the CloudBeaver cluster
 1. Clone repository
    ```sh
@@ -76,6 +85,61 @@ This step is only required for Nginx, as HAProxy resolves service names via Dock
 
 ### Stopping the cluster
 `docker-compose down`
+
+### Using external database
+
+By default, CloudBeaver stores all data in an internal PostgreSQL database. If you want to use it, skip this step.
+
+If you want to use another database, you can configure it by editing the `.env` file:
+
+1. Change `CLOUDBEAVER_DB_DRIVER` to driver for a database you want to use, for example: `postgres-jdbc`/`mariaDB`/`oracle_thin`/`microsoft`
+2. Change `CLOUDBEAVER_DB_URL` to the JDBC connection URL for your database.
+3. Set `CLOUDBEAVER_DB_USER` and `CLOUDBEAVER_DB_PASSWORD` with your database credentials.
+
+#### Configure PostgreSQL database
+
+Connect to your Postgres database and run:
+```
+CREATE SCHEMA IF NOT EXISTS cb;
+```
+
+#### Configure MySQL/MariaDB database
+
+**Note:** The MySQL driver is not included by default. To use MySQL as an internal database, connect using the MariaDB driver.
+
+Connect to your MariaDB or MySQL database and run:
+```
+CREATE SCHEMA IF NOT EXISTS cb;
+```
+
+You might need to add additional parameters to the `CLOUDBEAVER_DB_URL`:
+
+- `allowPublicKeyRetrieval=true` — to allow the client to automatically request the public key from the server.
+- `autoReconnect=true` — to prevent the connection from closing after 8 hours of inactivity.
+
+##### Example:
+
+`CLOUDBEAVER_DB_URL=jdbc:mariadb://127.0.0.1:3306/cloudbeaver?autoReconnect=true&allowPublicKeyRetrieval=true`
+
+#### Configure Oracle database
+
+Connect to your Oracle database and run:
+```
+CREATE USER CB;
+GRANT UNLIMITED TABLESPACE TO CB;
+```
+
+#### Configure SQL Server database
+
+Connect to your SQL Server database and run:
+```
+CREATE DATABASE cloudbeaver;
+```
+
+##### Example:
+
+`CLOUDBEAVER_DB_DRIVER=microsoft`  
+`CLOUDBEAVER_DB_URL=jdbc:sqlserver://127.0.0.1:1433;databaseName=cloudbeaver`
 
 ### Configuring SSL (HTTPS)
 
