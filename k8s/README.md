@@ -30,6 +30,7 @@ Previously, the volumes were owned by the ‘root’ user, but now they are owne
 - `cd cloudbeaver-deploy/k8s`
 - `cp ./values.yaml.example ./values.yaml`
 - Edit chart values in `values.yaml` (use any text editor)
+- You must set the `cloudbeaver_db_password` variable before deploying the cluster. The database password is empty by default and the deployment will fail without it.
 - Configure domain and SSL certificate (optional)
   - Add an A record in your DNS hosting for a value of `cloudbeaverBaseDomain` variable with load balancer IP address.
   - If you set the *HTTPS* endpoint scheme, then create a valid TLS certificate for the domain endpoint `cloudbeaverBaseDomain` and place it into `k8s/ingressSsl`:  
