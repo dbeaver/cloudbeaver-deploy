@@ -112,10 +112,6 @@ variable "cloudbeaver-env" {
   {
       "name": "CLOUDBEAVER_QM_DB_SCHEMA",
       "value": "qm"
-  },
-  {
-      "name": "CLOUDBEAVER_PUBLIC_URL",
-      "value": "test-domain-name.databases.team"
   }]
 }
 
