@@ -75,7 +75,7 @@ JAVA_TOOL_OPTIONS="-Dhttp.proxy.host=<proxyname> -Dhttps.proxy.host=<proxyname> 
     - Navigate to `cloudbeaver-deploy`
     - Copy `.env.example` to `.env`
     - Edit the `.env` file to set configuration properties
-    - It is highly recommended to change the default database password in `CLOUDBEAVER_DB_PASSWORD` variable
+    - You must set the `CLOUDBEAVER_DB_PASSWORD` variable before starting the cluster. The database password is empty by default and the service will not start without it.
 3. Start the cluster
     - `docker-compose up -d` or `docker compose up -d`
 4. Ensure the following TCP ports are available in your network stack

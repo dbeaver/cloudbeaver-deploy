@@ -87,7 +87,7 @@ variable "cloudbeaver-env" {
   },
   {
       "name": "CLOUDBEAVER_DB_PASSWORD",
-      "value": "StR0NgP2s"
+      "value": ""
   },
   {
       "name": "CLOUDBEAVER_DB_SCHEMA",
@@ -107,7 +107,7 @@ variable "cloudbeaver-env" {
   },
   {
       "name": "CLOUDBEAVER_QM_DB_PASSWORD",
-      "value": "StR0NgP2s"
+      "value": ""
   },
   {
       "name": "CLOUDBEAVER_QM_DB_SCHEMA",
@@ -136,7 +136,7 @@ variable "cloudbeaver-db-env" {
   # type = map(string)
   default = [
     { "name": "POSTGRES_PASSWORD",
-     "value": "postgres"},
+     "value": ""},
     { "name": "POSTGRES_USER",
      "value": "postgres"},
     { "name": "POSTGRES_DB",

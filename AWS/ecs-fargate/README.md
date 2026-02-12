@@ -22,8 +22,7 @@
       - Copy `variables.tf.example` to `variables.tf`
       - Open `variables.tf` file.  
       - Specify `rds_db_version`, the default is `postgres:16.1`. Only PostgreSQL version can be specified.  
-      - Set the credentials for database in `cloudbeaver-db-env`. By default it is `postgres`.  
-
+      - You must set the database password in `cloudbeaver-db-env`. The password is empty by default and the service will not start without it.  
 5. Configure the deployment in `variables.tf` file as follows:  
    - Set your `aws_account_id`, you can get it by logging into your AWS console:
 
