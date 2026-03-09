@@ -22,8 +22,7 @@
       - Copy `variables.tf.example` to `variables.tf`
       - Open `variables.tf` file.  
       - Specify `rds_db_version`, the default is `postgres:16.1`. Only PostgreSQL version can be specified.  
-      - Set the credentials for database in `cloudbeaver-db-env`. By default it is `postgres`.  
-
+      - You must set the database password in `cloudbeaver-db-env`. The password is empty by default and the service will not start without it.  
 5. Configure the deployment in `variables.tf` file as follows:  
    - Set your `aws_account_id`, you can get it by logging into your AWS console:
 
@@ -33,8 +32,8 @@
 
    ![alt text](images/image-1.png)
 
-   - Ensure that the `alb_certificate_Identifier` variable contains the ID from [AWS Certificate Manager](#importing-an-ssl-certificate-in-aws) corresponding to the domain name specified   in the `CLOUDBEAVER_PUBLIC_URL` variable within variables.tf. The domain name in `CLOUDBEAVER_PUBLIC_URL` must match the domain for which the certificates have been issued.
-   - You can customize the deployment version by updating the `cloudbeaver_version` environment variable. The default version is `25.2.0`.
+   - Ensure that the `alb_certificate_Identifier` variable contains the ID from [AWS Certificate Manager](#importing-an-ssl-certificate-in-aws) corresponding to your domain name. The domain name must match the domain for which the certificates have been issued.
+   - You can customize the deployment version by updating the `cloudbeaver_version` environment variable.
 
 6. Run `terraform init` and then `terraform apply` in `ecs-fargate` directory to create the ECS cluster and complete the deployment.
 

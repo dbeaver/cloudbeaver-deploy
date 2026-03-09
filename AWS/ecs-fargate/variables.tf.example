@@ -25,7 +25,7 @@ variable "cloudbeaver_image_name" {
 variable "cloudbeaver_version" {
   description = "The version of the cluster you want to deploy"
   type = string
-  default = "25.3.0"
+  default = "26.0.0"
 }
 
 variable "alb_certificate_Identifier" {
@@ -87,7 +87,7 @@ variable "cloudbeaver-env" {
   },
   {
       "name": "CLOUDBEAVER_DB_PASSWORD",
-      "value": "StR0NgP2s"
+      "value": ""
   },
   {
       "name": "CLOUDBEAVER_DB_SCHEMA",
@@ -107,15 +107,11 @@ variable "cloudbeaver-env" {
   },
   {
       "name": "CLOUDBEAVER_QM_DB_PASSWORD",
-      "value": "StR0NgP2s"
+      "value": ""
   },
   {
       "name": "CLOUDBEAVER_QM_DB_SCHEMA",
       "value": "qm"
-  },
-  {
-      "name": "CLOUDBEAVER_PUBLIC_URL",
-      "value": "test-domain-name.databases.team"
   }]
 }
 
@@ -136,7 +132,7 @@ variable "cloudbeaver-db-env" {
   # type = map(string)
   default = [
     { "name": "POSTGRES_PASSWORD",
-     "value": "postgres"},
+     "value": ""},
     { "name": "POSTGRES_USER",
      "value": "postgres"},
     { "name": "POSTGRES_DB",

@@ -6,7 +6,7 @@
 cloudbeaver:
   replicaCount: 1
   image: dbeaver/cloudbeaver-ee
-  imageTag: "25.3.0"
+  imageTag: "26.0.0"
   pullPolicy: Always
   # pullCredsName - name of a secret config map that contains docker repo auths
   # pullCredsName: regcred
@@ -51,4 +51,4 @@ backend:
   cloudbeaver_db_driver: postgres-jdbc
   cloudbeaver_db_url: jdbc:postgresql://postgres:5432/cloudbeaver
   cloudbeaver_db_user: postgres
-  cloudbeaver_db_password: StR0NgP2sSw0rD
+  cloudbeaver_db_password: ""
