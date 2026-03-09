@@ -1,8 +1,6 @@
 # CloudBeaver Enterprise deployment
 
-### Version 26.0 Early Access
-
-**Warning:** Please keep in mind that Early Access versions are not as stable as regular releases, and their use in a production environment is not recommended.
+### Version 26.0
 
 CloudBeaver Enterprise is a client-server application.
 It requires server deployment. You can deploy it on a single host (e.g. your local computer) or in a cloud.
