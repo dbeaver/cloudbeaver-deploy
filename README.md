@@ -1,6 +1,6 @@
 # CloudBeaver Enterprise deployment
 
-### Version 26.0 Early Access
+### Version 26.1 Early Access
 
 **Warning:** Please keep in mind that Early Access versions are not as stable as regular releases, and their use in a production environment is not recommended.
 
@@ -174,6 +174,7 @@ For Kubernetes deployments using Helm charts, see:
 - [AWS EKS specific deployment guide](AWS/aws-eks/eks-deployment.md)
 
 ### Older versions:
+- [26.0.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/26.0.0)
 - [25.3.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.3.0)
 - [25.2.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.2.0)
 - [25.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.1.0)
