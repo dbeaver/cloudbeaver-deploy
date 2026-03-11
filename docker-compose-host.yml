@@ -46,6 +46,8 @@ services:
       - CLOUDBEAVER_QM_DB_PASSWORD=${CLOUDBEAVER_QM_DB_PASSWORD}
       - CLOUDBEAVER_QM_DB_SCHEMA=${CLOUDBEAVER_QM_DB_SCHEMA}
       - CLOUDBEAVER_DMSVC_URL=http://127.0.0.1:11000
+      - NETWORK_MODE=host
+      - JAVA_TOOL_OPTIONS=${JAVA_TOOL_OPTIONS:-}
     depends_on:
       - postgres
 
@@ -56,8 +58,8 @@ services:
     image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./cloudbeaver-db-init.sql:/docker-entrypoint-initdb.d/cb-init.sql
     environment:
       - POSTGRES_DB=cloudbeaver
       - POSTGRES_USER=${CLOUDBEAVER_DB_USER}
       - POSTGRES_PASSWORD=${CLOUDBEAVER_DB_PASSWORD}
+      - NETWORK_MODE=host

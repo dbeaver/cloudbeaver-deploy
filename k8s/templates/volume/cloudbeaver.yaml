@@ -8,6 +8,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  {{- if eq .Values.cloudProvider "aws" }}
+  storageClassName: {{ .Values.storage.storageClassName }}
+  {{- end }}
   resources:
     requests:
       storage: 2Gi

@@ -1,6 +1,8 @@
 # CloudBeaver Enterprise deployment
 
-### Version 25.1
+### Version 26.1 Early Access
+
+**Warning:** Please keep in mind that Early Access versions are not as stable as regular releases, and their use in a production environment is not recommended.
 
 CloudBeaver Enterprise is a client-server application.
 It requires server deployment. You can deploy it on a single host (e.g. your local computer) or in a cloud.
@@ -117,6 +119,15 @@ environment:
 ```
 This step is only required for Nginx, as HAProxy resolves service names via Docker DNS automatically.
 
+#### Java tool options
+
+Java does not read system environment variables. To pass Java parameters to the Java process, use the `JAVA_TOOL_OPTIONS` variable in your `.env` file.
+
+Example for proxy configuration:
+```
+JAVA_TOOL_OPTIONS="-Dhttp.proxy.host=<proxyname> -Dhttps.proxy.host=<proxyname> -Dhttp.proxy.port=<port> -Dhttps.proxy.port=<port>"
+```
+
 ### Configuring and starting the CloudBeaver cluster
 1. Clone repository
    ```sh
@@ -126,7 +137,7 @@ This step is only required for Nginx, as HAProxy resolves service names via Dock
     - Navigate to `cloudbeaver-deploy`
     - Copy `.env.example` to `.env`
     - Edit the `.env` file to set configuration properties
-    - It is highly recommended to change the default database password in `CLOUDBEAVER_DB_PASSWORD` variable
+    - You must set the `CLOUDBEAVER_DB_PASSWORD` variable before starting the cluster. The database password is empty by default and the service will not start without it.
 3. Start the cluster
     - `docker-compose up -d` or `docker compose up -d`
 4. Ensure the following TCP ports are available in your network stack
@@ -136,6 +147,61 @@ This step is only required for Nginx, as HAProxy resolves service names via Dock
 
 ### Stopping the cluster
 `docker-compose down`
+
+### Using external database
+
+By default, CloudBeaver stores all data in an internal PostgreSQL database. If you want to use it, skip this step.
+
+If you want to use another database, you can configure it by editing the `.env` file:
+
+1. Change `CLOUDBEAVER_DB_DRIVER` to driver for a database you want to use, for example: `postgres-jdbc`/`mariaDB`/`oracle_thin`/`microsoft`
+2. Change `CLOUDBEAVER_DB_URL` to the JDBC connection URL for your database.
+3. Set `CLOUDBEAVER_DB_USER` and `CLOUDBEAVER_DB_PASSWORD` with your database credentials.
+
+#### Configure PostgreSQL database
+
+Connect to your Postgres database and run:
+```
+CREATE SCHEMA IF NOT EXISTS cb;
+```
+
+#### Configure MySQL/MariaDB database
+
+**Note:** The MySQL driver is not included by default. To use MySQL as an internal database, connect using the MariaDB driver.
+
+Connect to your MariaDB or MySQL database and run:
+```
+CREATE SCHEMA IF NOT EXISTS cb;
+```
+
+You might need to add additional parameters to the `CLOUDBEAVER_DB_URL`:
+
+- `allowPublicKeyRetrieval=true` — to allow the client to automatically request the public key from the server.
+- `autoReconnect=true` — to prevent the connection from closing after 8 hours of inactivity.
+
+##### Example:
+
+`CLOUDBEAVER_DB_URL=jdbc:mariadb://127.0.0.1:3306/cloudbeaver?autoReconnect=true&allowPublicKeyRetrieval=true`
+
+#### Configure Oracle database
+
+Connect to your Oracle database and run:
+```
+CREATE USER CB;
+GRANT UNLIMITED TABLESPACE TO CB;
+```
+
+#### Configure SQL Server database
+
+Connect to your SQL Server database and run:
+```
+CREATE DATABASE cloudbeaver;
+```
+
+##### Example:
+
+`CLOUDBEAVER_DB_DRIVER=microsoft`  
+`CLOUDBEAVER_DB_URL=jdbc:sqlserver://127.0.0.1:1433;databaseName=cloudbeaver`
 
 ### Configuring SSL (HTTPS)
 
@@ -166,7 +232,17 @@ or replace `docker-compose.yml` with `podman-compose.yml` and use `podman-compos
 4. Pull new docker images: `docker-compose pull` or `docker compose pull`
 5. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
 
+## Kubernetes/Helm Deployment
+
+For Kubernetes deployments using Helm charts, see:
+- [General Kubernetes/Helm deployment guide](k8s/README.md)
+- [AWS EKS specific deployment guide](AWS/aws-eks/eks-deployment.md)
+
 ### Older versions:
+- [26.0.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/26.0.0)
+- [25.3.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.3.0)
+- [25.2.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.2.0)
+- [25.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.1.0)
 - [25.0.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.0.0)
 - [24.3.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.3.0)
 - [24.2.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/24.2.0)

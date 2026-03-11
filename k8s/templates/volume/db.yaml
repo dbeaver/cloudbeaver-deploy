@@ -9,6 +9,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  {{- if eq .Values.cloudProvider "aws" }}
+  storageClassName: ebs-sc
+  {{- end }}
   resources:
     requests:
       storage: 2Gi

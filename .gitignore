@@ -5,3 +5,4 @@ values.yaml
 trusted-cacerts/*
 .env
 variables.tf
+k8s/ingressSsl/
