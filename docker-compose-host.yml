@@ -28,10 +28,11 @@ services:
     hostname: cloudbeaver
     network_mode: host
     restart: unless-stopped
+    user: "8978"
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace
       - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/
-      - trusted_cacerts:/opt/cloudbeaver/workspace/.data/custom/
+      - trusted_cacerts:/opt/cloudbeaver/conf/custom/
       - api_tokens:/opt/cloudbeaver/conf/keys/
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}

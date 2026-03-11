@@ -25,6 +25,15 @@ If a user with ‘UID=8978’ already exists in your environment, permission con
 Additionally, the default Docker volumes directory’s ownership has changed.  
 Previously, the volumes were owned by the ‘root’ user, but now they are owned by the ‘dbeaver’ user (‘UID=8978’).  
 
+### Upgrade from version ≤ 25.0.0 to 25.2.0+ (volume-ownership migration)  
+
+If you are on ≤ 25.0.0, **do not** jump directly to 25.2.0 or later.  
+First upgrade to 25.1.0, let the stack start once, then upgrade to your desired 25.x.0 tag.  
+
+**Reason:**  
+25.1.0 still starts as `root` and automatically chowns every files in the volumes to ‘dbeaver’ user (‘UID=8978’).  
+From 25.2.0 onward the container itself runs only as `dbeaver`, so the volumes must already belong to that UID/GID.  
+
 ### How to run services
 - Clone this repo from GitHub: `git clone https://github.com/dbeaver/cloudbeaver-deploy`
 - `cd cloudbeaver-deploy/k8s`
@@ -40,24 +49,19 @@ Previously, the volumes were owned by the ‘root’ user, but now they are owne
 
 ### Version update procedure.
 
-- Change directory to `cloudbeaver-deploy/k8s`.
+- Navigate to `cloudbeaver-deploy`
+- Run command `git checkout %version%`
+- Navigate to `cloudbeaver-deploy/k8s`.
 - Change value of `imageTag` in configuration file `values.yaml` with a preferred version. Go to next step if tag `latest` set.
 - Upgrade cluster: `helm upgrade cloudbeaver ./ --values ./values.yaml` 
 
 ### OpenShift deployment
 
-You need additional configuration changes
+Containers run as user `dbeaver` (UID=8978). For OpenShift deployment:
 
-- In `values.yaml` change the `ingressController` value to `haproxy`
-- Add security context  
-  Uncomment the following lines in `cloudbeaver.yaml` files in [templates/deployment](templates/deployment):
-    ```yaml
-          # securityContext:
-          #     runAsUser: 1000
-          #     runAsGroup: 1000
-          #     fsGroup: 1000
-          #     fsGroupChangePolicy: "Always"
-    ```
+1. In `values.yaml` change the `ingressController` value to `haproxy`
+2. Create and configure a ServiceAccount with appropriate SCC to run containers as UID=8978
+3. In `values.yaml` add `serviceAccountName` under `cloudbeaver` section
 
 ### Digital Ocean proxy configuration
 

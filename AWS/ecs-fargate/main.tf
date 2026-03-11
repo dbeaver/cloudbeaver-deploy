@@ -60,6 +60,7 @@ resource "aws_ecs_task_definition" "cloudbeaver-task" {
     name        = "${var.task_name}"
     image       = "${var.cloudbeaver_image_source}/${var.cloudbeaver_image_name}:${var.cloudbeaver_version}"
     essential   = true
+    user        = "8978:8978"
     environment = local.updated_cloudbeaver_env
     logConfiguration = {
                 "logDriver": "awslogs"

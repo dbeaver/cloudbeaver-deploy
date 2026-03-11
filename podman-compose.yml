@@ -35,12 +35,13 @@ services:
     restart: unless-stopped
     hostname: cloudbeaver
     image: ${PODMAN_IMAGE_SOURCE:-docker.io/dbeaver}/cloudbeaver-ee:${CLOUDBEAVER_VERSION_TAG}
+    user: "8978"
     deploy:
       replicas: ${REPLICA_COUNT_EE:-1}
     volumes:
       - cloudbeaver:/opt/cloudbeaver/workspace:z
       - cloudbeaver_certs:/opt/cloudbeaver/conf/certificates/:z
-      - trusted_cacerts:/opt/cloudbeaver/workspace/.data/custom/:z
+      - trusted_cacerts:/opt/cloudbeaver/conf/custom/:z
       - api_tokens:/opt/cloudbeaver/conf/keys/:z
     environment:
       - CLOUDBEAVER_DB_DRIVER=${CLOUDBEAVER_DB_DRIVER}
