@@ -66,6 +66,20 @@ Example for proxy configuration:
 JAVA_TOOL_OPTIONS="-Dhttp.proxy.host=<proxyname> -Dhttps.proxy.host=<proxyname> -Dhttp.proxy.port=<port> -Dhttps.proxy.port=<port>"
 ```
 
+#### Proxy configuration in front of CloudBeaver
+
+If you place your own reverse proxy in front of CloudBeaver instead of the bundled `web-proxy`, it must forward the following headers so the backend can resolve the correct public origin.
+
+The backend looks for the public origin in this order (first non-empty wins):
+
+- `Origin` — public URL the client used (`scheme://host[:port]`).
+- `X-Origin` — fallback when `Origin` is absent.
+- `Referer` — last-resort fallback.
+- `X-Forwarded-Scheme` — original scheme (`http` / `https`).
+- `X-Forwarded-Proto` — fallback for `X-Forwarded-Scheme` (`http` / `https`).
+- `X-Forwarded-Host` — original host. If both the scheme and host above are set, they override `Origin` / `X-Origin` / `Referer`.
+- `X-Forwarded-Port` — original port (only needed if it differs from 80/443).
+
 ### Configuring and starting the CloudBeaver cluster
 1. Clone repository
    ```sh
