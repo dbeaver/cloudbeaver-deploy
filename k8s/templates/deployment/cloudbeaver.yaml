@@ -19,11 +19,15 @@ spec:
         {{ .Release.Name }}-private-net: "true"
         app: cloudbeaver
     spec:
-      # securityContext:
-      #     runAsUser: 1000
-      #     runAsGroup: 1000
-      #     fsGroup: 1000
-      #     fsGroupChangePolicy: "Always"
+      {{- if .Values.cloudbeaver.serviceAccountName }}
+      serviceAccountName: {{ .Values.cloudbeaver.serviceAccountName }}
+      {{- end }}
+      securityContext:
+          runAsUser: 8978
+          runAsGroup: 8978
+          fsGroup: 8978
+          runAsNonRoot: true
+          fsGroupChangePolicy: "OnRootMismatch"
       containers:
         - image: "{{ .Values.cloudbeaver.image }}:{{ .Values.cloudbeaver.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: "{{ .Values.cloudbeaver.pullPolicy }}"
