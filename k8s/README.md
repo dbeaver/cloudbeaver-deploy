@@ -43,7 +43,7 @@ Previously, the volumes were owned by the ‘root’ user, but now they are owne
 1. Change directory to `cloudbeaver-deploy/k8s`.
 2. Update your deployment files:
    - Fetch the latest changes: `git fetch`.
-   - Switch to the matching release branch: `git checkout <version>` (for example, `git checkout 26.1.0`).
+   - Switch to the branch for the version you're updating to: `git checkout <version>` (for example, `git checkout 26.1.0`).
 3. Change the value of `imageTag` in the `values.yaml` configuration file to the preferred version. Skip this step if the tag is set to `latest`.
 4. Upgrade the cluster: `helm upgrade cloudbeaver ./ --values ./values.yaml`.
 
