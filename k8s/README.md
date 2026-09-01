@@ -38,11 +38,14 @@ Previously, the volumes were owned by the ‘root’ user, but now they are owne
     Private Key: `ingressSsl/privkey.pem`
 - Deploy Cloudbeaver with Helm: `helm install cloudbeaver ./ --values ./values.yaml`
 
-### Version update procedure.
+### Version update procedure
 
-- Change directory to `cloudbeaver-deploy/k8s`.
-- Change value of `imageTag` in configuration file `values.yaml` with a preferred version. Go to next step if tag `latest` set.
-- Upgrade cluster: `helm upgrade cloudbeaver ./ --values ./values.yaml` 
+1. Change directory to `cloudbeaver-deploy/k8s`.
+2. Update your deployment files:
+   - Fetch the latest changes: `git fetch`.
+   - Switch to the matching release branch: `git checkout <version>` (for example, `git checkout 26.1.0`).
+3. Change the value of `imageTag` in the `values.yaml` configuration file to the preferred version. Skip this step if the tag is set to `latest`.
+4. Upgrade the cluster: `helm upgrade cloudbeaver ./ --values ./values.yaml`.
 
 ### OpenShift deployment
 
