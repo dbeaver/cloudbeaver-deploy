@@ -177,9 +177,13 @@ podman-compose -f podman-compose.yml up -d
 or replace `docker-compose.yml` with `podman-compose.yml` and use `podman-compose` without compose project definition
 
 ### Updating the cluster
-1. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. If you use the tag `latest`, you don't need to do anything during this step.
-2. Pull new docker images: `docker-compose pull` or `docker compose pull`
-3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
+1. Stop the cluster: `docker-compose down` or `docker compose down`.
+2. Update your deployment files:
+   - Fetch the latest changes: `git fetch`.
+   - Switch to the branch for the version you're updating to: `git checkout <version>` (for example, `git checkout 26.1.0`).
+3. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with the preferred version. Skip this step if the tag is set to `latest`.
+4. Pull new Docker images: `docker-compose pull` or `docker compose pull`.
+5. Start the cluster: `docker-compose up -d` or `docker compose up -d`.
 
 ## Kubernetes/Helm Deployment
 
