@@ -5,9 +5,9 @@ To migrate such a deployment to Docker Compose, copy its workspace to the volume
 workspace contains the server configuration and internal databases.
 
 > **Known issue:** CloudBeaver `26.1.0` cannot migrate an H2 v1 internal database directly to PostgreSQL. If your
-> workspace uses H2 v1, first start it with CloudBeaver `26.0.0` and wait for the automatic migration to complete. You
-> can then update the Compose deployment to `26.1.0` or later. CloudBeaver automatically performs the intermediate H2
-> v1 to H2 v2 migration and then migrates the internal data to PostgreSQL.
+> workspace uses H2 v1, don't select version `26.1.0` for the migration. Choose the latest version or another version
+> that supports this migration. CloudBeaver automatically performs the intermediate H2 v1 to H2 v2 migration and then
+> migrates the internal data to PostgreSQL.
 
 1. Stop the existing container and back up its workspace. These commands use the default legacy workspace path:
    ```sh
@@ -15,12 +15,13 @@ workspace contains the server configuration and internal databases.
    sudo tar --zstd -cf workspace.tar.zst -C /var/cloudbeaver workspace
    ```
    If the container uses a different host path for `/opt/cloudbeaver/workspace`, use that path in the following steps.
-2. Clone the `26.0.0` deployment configuration and create the environment file:
+2. Clone the latest deployment configuration and create the environment file:
    ```sh
-   git clone -b 26.0.0 https://github.com/dbeaver/cloudbeaver-deploy.git
+   git clone -b main https://github.com/dbeaver/cloudbeaver-deploy.git
    cd cloudbeaver-deploy
    cp .env.example .env
    ```
+   To use a specific CloudBeaver version, replace `main` with the corresponding release branch.
 3. For CloudBeaver AWS only, use the host-network Compose file and AWS image:
    ```sh
    printf '\nCOMPOSE_FILE=docker-compose-host.yml\n' >> .env
