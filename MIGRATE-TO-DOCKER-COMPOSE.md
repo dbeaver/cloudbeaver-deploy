@@ -14,7 +14,9 @@ workspace contains the server configuration and internal databases.
    docker stop <container_id>
    sudo tar --zstd -cf workspace.tar.zst -C /var/cloudbeaver workspace
    ```
-   If the container uses a different host path for `/opt/cloudbeaver/workspace`, use that path in the following steps.
+   `/var/cloudbeaver/workspace` is a common host path for the bind mount mapped to
+   `/opt/cloudbeaver/workspace` inside the container. If your deployment uses a different host path, replace
+   `/var/cloudbeaver/workspace` in the backup and workspace copy commands with the path used by your deployment.
 2. Clone the latest deployment configuration and create the environment file:
    ```sh
    git clone -b main https://github.com/dbeaver/cloudbeaver-deploy.git
