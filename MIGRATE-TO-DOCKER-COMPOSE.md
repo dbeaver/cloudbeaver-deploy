@@ -12,7 +12,7 @@ workspace contains the server configuration and internal databases.
 1. Stop the existing container and back up its workspace. These commands use the default legacy workspace path:
    ```sh
    docker stop <container_id>
-   sudo tar --zstd -cf workspace.tar.zst -C /var/cloudbeaver workspace
+   sudo tar --zstd -cf workspace.tar.zst -C /var/cloudbeaver/workspace
    ```
    If the container uses a different host path for `/opt/cloudbeaver/workspace`, use that path in the following steps.
 2. Clone the latest deployment configuration and create the environment file:
