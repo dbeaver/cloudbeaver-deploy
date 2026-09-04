@@ -97,6 +97,10 @@ The backend looks for the public origin in this order (first non-empty wins):
     - 443/tcp (for HTTPS access)
 5. Open `https://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
 
+### Migrating a legacy single-container deployment
+
+For instructions, see [Migrating a legacy single-container deployment](MIGRATE-TO-DOCKER-COMPOSE.md).
+
 ### Stopping the cluster
 `docker-compose down`
 
