@@ -1,6 +1,6 @@
 # CloudBeaver Enterprise deployment
 
-### Version 26.1
+### Version 26.2
 
 CloudBeaver Enterprise is a client-server application.
 It requires server deployment. You can deploy it in several ways:
@@ -14,7 +14,7 @@ It requires server deployment. You can deploy it in several ways:
 It is the simplest way to install [CloudBeaver Enterprise Edition](https://dbeaver.com/cloudbeaver-enterprise/).  
 All you need is a Linux, macOS, or Windows machine with Docker.
 
-CloudBeaver can be run in a [single docker container](#installation-with-docker-image).  
+CloudBeaver can be run in a [single docker container](#installation-with-docker-image).
 However you can use Docker compose for easy web server (HTTPS) configuration.
 
 ### System requirements
@@ -173,9 +173,13 @@ podman-compose -f podman-compose.yml up -d
 or replace `docker-compose.yml` with `podman-compose.yml` and use `podman-compose` without compose project definition
 
 ### Updating the cluster
-1. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with a preferred version. If you use the tag `latest`, you don't need to do anything during this step.
-2. Pull new docker images: `docker-compose pull` or `docker compose pull`
-3. Restart the cluster: `docker-compose up -d` or `docker compose up -d`
+1. Stop the cluster: `docker-compose down` or `docker compose down`.
+2. Update your deployment files:
+   - Fetch the latest changes: `git fetch`.
+   - Switch to the branch for the version you're updating to: `git checkout <version>` (for example, `git checkout 26.2.0`).
+3. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with the preferred version. Skip this step if the tag is set to `latest`.
+4. Pull new Docker images: `docker-compose pull` or `docker compose pull`.
+5. Start the cluster: `docker-compose up -d` or `docker compose up -d`.
 
 ## Installation with Docker image
 
@@ -234,6 +238,7 @@ Previously, the volumes were owned by the ‘root’ user, but now they’re own
 ## Older versions
 
 ### Older versions:
+- [26.1.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/26.1.0)
 - [26.0.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/26.0.0)
 - [25.3.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.3.0)
 - [25.2.0](https://github.com/dbeaver/cloudbeaver-deploy/tree/25.2.0)
