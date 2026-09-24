@@ -60,7 +60,7 @@ services:
   postgres:
     restart: unless-stopped
     hostname: postgres
-    image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:${PG_VERSION:16}
+    image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:${PG_VERSION:-16}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
