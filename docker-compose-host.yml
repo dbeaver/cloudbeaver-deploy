@@ -54,7 +54,7 @@ services:
     restart: unless-stopped
     hostname: postgres
     network_mode: host
-    image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:16
+    image: ${IMAGE_SOURCE:-dbeaver}/cloudbeaver-postgres:${PG_VERSION:-16}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:

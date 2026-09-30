@@ -181,6 +181,8 @@ podman-compose -f podman-compose.yml up -d
 or replace `docker-compose.yml` with `podman-compose.yml` and use `podman-compose` without compose project definition
 
 ### Updating the cluster
+**PostgreSQL version:** Keep the existing `.env` when updating; do not replace it with `.env.example` or add `PG_VERSION=18` without migrating the database. Without `PG_VERSION`, Compose uses PostgreSQL 16. If you previously upgraded PostgreSQL manually, set `PG_VERSION` to the version matching your data volume. Changing the image alone does not migrate data.
+
 1. Stop the cluster: `docker-compose down` or `docker compose down`.
 2. Update your deployment files:
    - Fetch the latest changes: `git fetch`.
