@@ -21,7 +21,7 @@
       - Navigate to `cloudbeaver-deploy/AWS/ecs-fargate`  
       - Copy `variables.tf.example` to `variables.tf`
       - Open `variables.tf` file.  
-      - Specify `rds_db_version`, the default is `postgres:16.1`. Only PostgreSQL version can be specified.  
+      - Set `rds_db_version` to a PostgreSQL engine version. The example selects 18 for new RDS databases.
       - You must set the database password in `cloudbeaver-db-env`. The password is empty by default and the service will not start without it.  
 5. Configure the deployment in `variables.tf` file as follows:  
    - Set your `aws_account_id`, you can get it by logging into your AWS console:
@@ -55,6 +55,8 @@
    ![alt text](images/image-2.png)
 
 ### Version update
+
+Keep the existing `variables.tf` and Terraform state when updating. Do not copy the new `variables.tf.example` over an existing configuration. The example selects PostgreSQL 18 only for a new RDS database. Changing `rds_db_version` on an existing database is a separate RDS upgrade; review the Terraform plan before applying it.
 
 1. Navigate to the `cloudbeaver-deploy/AWS/ecs-fargate` directory.
 

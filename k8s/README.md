@@ -40,6 +40,8 @@ Previously, the volumes were owned by the ‘root’ user, but now they are owne
 
 ### Version update procedure
 
+Keep your existing `values.yaml` and database PVC. Do not copy the new `values.yaml.example` over it. The example selects PostgreSQL 18 for new installations; a chart without `postgres.image` keeps PostgreSQL 13. Changing the image does not migrate an existing database.
+
 1. Change directory to `cloudbeaver-deploy/k8s`.
 2. Update your deployment files:
    - Fetch the latest changes: `git fetch`.
