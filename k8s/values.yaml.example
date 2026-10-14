@@ -46,6 +46,9 @@ storage:
   efs:
     fileSystemId: ""
 
+postgres:
+  image: "dbeaver/cloudbeaver-postgres:18"
+
 backend:
   internal_db: true
   cloudbeaver_db_driver: postgres-jdbc

@@ -124,7 +124,7 @@ variable "rds_db_type" {
 variable "rds_db_version" {
   description = "Version of type RDS DB instance"
   type        = string
-  default     = "16.1"
+  default     = "18"
 }
 
 variable "cloudbeaver-db-env" {
