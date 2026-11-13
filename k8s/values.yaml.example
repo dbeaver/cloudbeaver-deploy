@@ -13,7 +13,7 @@ cloudbeaver:
 
 # Ingress Values
 # Trust forwarded headers only behind a trusted ingress with no direct backend access.
-forwardProxy: true
+forwardProxy: false
 # Annotations for all application Ingress resources; override built-in values.
 ingressAnnotations: {}
 

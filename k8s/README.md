@@ -75,7 +75,7 @@ For community ingress-nginx, also set `use-proxy-protocol: "true"` in its contro
 
 ### Real client IP
 
-Set the existing application proxy support through chart values:
+The example values disable forwarded-header processing (`forwardProxy: false`). After restricting backend access to trusted proxies and sanitizing incoming headers as described below, opt in through chart values:
 
 ```yaml
 forwardProxy: true
