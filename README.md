@@ -93,6 +93,18 @@ The backend looks for the public origin in this order (first non-empty wins):
     - 443/tcp (for HTTPS access)
 5. Open `https://<deployment-machine-ip-address>` to access the app. This URL will open the admin panel when the app is first started.
 
+### Server time zone
+
+Set `TZ` in your `.env` file to an IANA time zone, for example `TZ=Europe/Berlin`.
+The default is `UTC` when `TZ` is unset or empty. This sets the CloudBeaver server
+time zone, not a per-user date display format or the database server time zone.
+An explicit `-Duser.timezone` in `JAVA_TOOL_OPTIONS` overrides `TZ` for Java.
+
+From `cloudbeaver-deploy`, apply the change with `docker compose up -d --no-deps --force-recreate cloudbeaver`.
+For host networking, add `-f docker-compose-host.yml`; for Podman, use
+`podman-compose -f podman-compose.yml up -d --no-deps --force-recreate cloudbeaver`.
+Keep your existing `.env` during updates to preserve this setting.
+
 ### Stopping the cluster
 `docker-compose down`
 
