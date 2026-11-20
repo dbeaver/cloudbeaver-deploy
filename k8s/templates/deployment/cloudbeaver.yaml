@@ -29,6 +29,10 @@ spec:
           imagePullPolicy: "{{ .Values.cloudbeaver.pullPolicy }}"
           name: cloudbeaver
           env:
+            {{- if hasKey .Values "forwardProxy" }}
+            - name: CLOUDBEAVER_APP_FORWARD_PROXY
+              value: {{ .Values.forwardProxy | toString | quote }}
+            {{- end }}
             - name: CLOUDBEAVER_DB_DRIVER
               value: "{{ .Values.backend.cloudbeaver_db_driver }}"
             - name: CLOUDBEAVER_DB_URL

@@ -12,6 +12,11 @@ cloudbeaver:
   # pullCredsName: regcred
 
 # Ingress Values
+# Trust forwarded headers only behind a trusted ingress with no direct backend access.
+forwardProxy: false
+# Annotations for all application Ingress resources; override built-in values.
+ingressAnnotations: {}
+
 # Supported ingress controllers: nginx, haproxy, alb
 ingressController: nginx
 # Domain name for ingress endpoint
