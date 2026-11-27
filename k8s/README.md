@@ -45,9 +45,11 @@ Keep your existing `values.yaml` and database PVC. Do not copy the new `values.y
 1. Change directory to `cloudbeaver-deploy/k8s`.
 2. Update your deployment files:
    - Fetch the latest changes: `git fetch`.
-   - Switch to the branch for the version you're updating to: `git checkout <version>` (for example, `git checkout 26.1.0`).
-3. Change the value of `imageTag` in the `values.yaml` configuration file to the preferred version. Skip this step if the tag is set to `latest`.
+   - Switch to the deployment branch or exact Git tag, for example `git checkout 26.3.0`.
+3. For stable releases starting with 26.3, set `cloudbeaver.imageTag` to `"26.3"` in `values.yaml` to follow that release line, or use a full tag such as `"26.3.0.1"` to pin an exact release. `26.3` is an image tag, not a Git ref. Set `cloudbeaver.pullPolicy` to `Always` for a rolling tag. Keep `ea` for Early Access.
 4. Upgrade the cluster: `helm upgrade cloudbeaver ./ --values ./values.yaml`.
+
+Run the Helm upgrade even if the rolling tag hasn’t changed. The chart replaces the CloudBeaver pods so they pull the current image.
 
 ### OpenShift deployment
 

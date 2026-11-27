@@ -197,9 +197,9 @@ Until you complete this migration, keep `PG_VERSION` set to the version that mat
 1. Stop the cluster: `docker-compose down` or `docker compose down`.
 2. Update your deployment files:
    - Fetch the latest changes: `git fetch`.
-   - Switch to the branch for the version you're updating to: `git checkout <version>` (for example, `git checkout 26.1.0`).
-3. Replace the value of `CLOUDBEAVER_VERSION_TAG` in `.env` with the preferred version. Skip this step if the tag is set to `latest`.
-4. Pull new Docker images: `docker-compose pull` or `docker compose pull`.
+   - Switch to the deployment branch or exact Git tag, for example `git checkout 26.3.0`.
+3. For stable releases starting with 26.3, set `CLOUDBEAVER_VERSION_TAG=26.3` in `.env` to follow the newest release in that line, or use a full tag such as `26.3.0.1` to pin an exact release. `26.3` is an image tag, not a Git ref. Keep `ea` for Early Access.
+4. Pull new Docker images even if the rolling tag hasn’t changed: `docker-compose pull` or `docker compose pull`. Restarting existing containers alone does not pick up the new images.
 5. Start the cluster: `docker-compose up -d` or `docker compose up -d`.
 
 ## Kubernetes/Helm Deployment
